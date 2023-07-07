@@ -1,15 +1,21 @@
 package com.project.springboot.agenda.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -64,9 +70,19 @@ public class Paciente implements Serializable {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date ultimo_inicio_sesion;
 	private String estado;
+	
+	//Un medico puede tener muchas citas
+	@OneToMany(mappedBy="paciente",fetch=FetchType.LAZY,cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<Horario> horarios;
 
 	private static final long serialVersionUID = 1L;
 	
+	//-- constructor
+	public Paciente() {
+		horarios=new ArrayList<Horario>();
+	}
+	
+	// --- metodos
 	@PrePersist
 	public void prePersist() {
 		fecha_creacion=new Date();
@@ -156,5 +172,18 @@ public class Paciente implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public List<Horario> getHorarios() {
+		return horarios;
+	}
+
+	public void setHorarios(List<Horario> horarios) {
+		this.horarios = horarios;
+	}
+	
+	public void addHorario(Horario horario) {
+		horarios.add(horario);
+	}
+	
 
 }

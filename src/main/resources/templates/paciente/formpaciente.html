@@ -17,7 +17,7 @@
 				<hr class="border boder-success">
 				<div class="card-body">
 					<!--enctype: este tipo de configuracion en el formulario permite subir archivos, fotos, etc ..  -->
-					<form th:action="@{/formpaciente}" th:object="${paciente}" method="POST">
+					<form th:action="@{/paciente/formpaciente}" th:object="${paciente}" method="POST">
 						<input type="hidden" th:field="*{id}" />
 						
 			

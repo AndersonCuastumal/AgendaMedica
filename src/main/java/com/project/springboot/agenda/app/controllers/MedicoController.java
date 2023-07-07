@@ -28,26 +28,27 @@ import jakarta.validation.Valid;
 
 
 @Controller
+@RequestMapping("/medico")
 @SessionAttributes("medico")
 public class MedicoController {
 	@Autowired
 
 	private IMedicoService medicoService;
 	
-	@RequestMapping(value="listamedicos", method=RequestMethod.GET)
+	@RequestMapping(value="/listamedicos", method=RequestMethod.GET)
 	public String listar(@RequestParam(name="page", defaultValue="0") int page, Model model) {
 		
 		Pageable pageRequest = PageRequest.of(page, 4); // Anuestra paginacion se agregara 4 registros por pagina
 		Page<Medico> medicos = medicoService.findAll(pageRequest);// En clientes tenemos la lista paginada
 
-		PageRender<Medico> pageRender = new PageRender<>("/listamedicos", medicos);
+		PageRender<Medico> pageRender = new PageRender<>("/medico/listamedicos", medicos);
 
 		model.addAttribute("titulo", "Listado de Medicos");
 
 		model.addAttribute("medicos", medicos); 
 		model.addAttribute("page", pageRender);
 		
-		return "listamedicos";
+		return "medico/listamedicos";
 	}
 	
 	@RequestMapping(value="/formmedico")
@@ -55,7 +56,7 @@ public class MedicoController {
 		Medico medico =new Medico();
 		model.put("medico", medico);
 		model.put("titulo", "Formulario de medico");
-		return "formmedico";
+		return "medico/formmedico";
 	}
 	
 	@RequestMapping( value="/formmedico",method=RequestMethod.POST)
@@ -66,14 +67,14 @@ public class MedicoController {
 		if(result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de medico");
 			
-			return "formmedico";
+			return "medico/formmedico";
 		}
 		
 		String mensajeFlash = (medico.getId() != null) ? "Medico actualizado con Exito!" : "Medico creado con éxito";
 		medicoService.save(medico);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
-		return "redirect:listamedicos";
+		return "redirect:/medico/listamedicos";
 	}
 	
 	
@@ -88,15 +89,15 @@ public class MedicoController {
 			if (medico == null) {
 				// Agregamos mensaje flash
 				flash.addFlashAttribute("error", "El ID del medico no existe en la BD");
-				return "redirect:/listamedicos";
+				return "redirect:/medico/listamedicos";
 			}
 		} else {
 			flash.addFlashAttribute("error", "El ID del medico no puede ser cero!");
-			return "redirect:/listamedicos";
+			return "redirect:/medico/listamedicos";
 		}
 		model.put("medico", medico);
 		model.put("titulo", "Editar Medico");
-		return "formmedico";
+		return "medico/formmedico";
 	}
 	
 	@RequestMapping(value="/eliminarmedico/{id}")
@@ -110,7 +111,7 @@ public class MedicoController {
 			
 
 		}
-		return "redirect:/listamedicos";
+		return "redirect:/medico/listamedicos";
 		
 	}
 	
@@ -122,10 +123,12 @@ public class MedicoController {
 
 		if (medico == null) {
 			flash.addFlashAttribute("error", "El medico no existe en la BD");
-			return "redirect:/listamedicos";
+			return "redirect:/medico/listamedicos";
 		}
+		
+		
 		model.put("medico", medico);
 		model.put("titulo", "Detalle del medico: " + medico.getNombre());
-		return "consultarmedico";
+		return "medico/consultarmedico";
 	}
 }

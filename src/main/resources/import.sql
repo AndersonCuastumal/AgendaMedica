@@ -20,3 +20,12 @@ INSERT INTO medicos (id, nombre, apellido, estado) VALUES (1, 'Martín', 'Iza', 
 INSERT INTO medicos (id, nombre, apellido, estado) VALUES (2, 'Jose', 'Gomez', 'activo');
 INSERT INTO medicos (id, nombre, apellido, estado) VALUES (3, 'Pedro', 'Narva', 'activo');
 
+
+INSERT INTO citas (id, numero_citas, hora_inicio, hora_fin) VALUES (1, 4, '8:30', '8:50');
+INSERT INTO citas (id, numero_citas, hora_inicio, hora_fin) VALUES (2, 4,'8:50', '9:10');
+INSERT INTO citas (id, numero_citas, hora_inicio, hora_fin) VALUES (3, 4,'9:10', '9:30');
+INSERT INTO citas (id, numero_citas, hora_inicio, hora_fin) VALUES (4, 4, '9:30', '9:50');
+
+INSERT INTO horarios (id, paciente_id, medico_id, descripcion, hora_atencion, dia_atencion) VALUES (1, 1, 2, 'Cita general', '9:30', '2023-07-18');
+INSERT INTO horarios (id, paciente_id, medico_id, descripcion, hora_atencion, dia_atencion) VALUES (2, 2, 2, 'Cita general', '9:50', '2023-07-10');
+INSERT INTO horarios (id, paciente_id, medico_id, descripcion, hora_atencion, dia_atencion) VALUES (3, 3, 1, 'Cita general', '10:20', '2023-07-09');

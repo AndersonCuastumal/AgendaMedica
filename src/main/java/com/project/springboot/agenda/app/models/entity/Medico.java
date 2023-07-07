@@ -1,11 +1,16 @@
 package com.project.springboot.agenda.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -26,9 +31,22 @@ public class Medico implements Serializable{
 	private String nombre;
 	private String apellido;
 	private String estado;
+	
+	//Un medico puede tener muchas citas
+	@OneToMany(mappedBy="medico",fetch=FetchType.LAZY,cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<Horario> horarios;
+	
+	
+	//Constructor
+	public Medico() {
+		horarios=new ArrayList<Horario>();
+	}
+	
+	//------Metodos
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -52,6 +70,18 @@ public class Medico implements Serializable{
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	
+	public List<Horario> getHorarios() {
+		return horarios;
+	}
+	public void setHorarios(List<Horario> horarios) {
+		this.horarios = horarios;
+	}
+	
+	public void addHorario(Horario horario) {
+		horarios.add(horario);
 	}
 	
 	

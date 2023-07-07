@@ -26,6 +26,7 @@ import com.project.springboot.agenda.app.util.paginator.PageRender;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/paciente")
 @SessionAttributes("paciente")
 public class PacienteController {
 	
@@ -34,20 +35,20 @@ public class PacienteController {
 
 	private IPacienteService pacienteService;
 	
-	@RequestMapping(value="listapacientes", method=RequestMethod.GET)
+	@RequestMapping(value="/listapacientes", method=RequestMethod.GET)
 	public String listar(@RequestParam(name="page", defaultValue="0") int page, Model model) {
 		
 		Pageable pageRequest = PageRequest.of(page, 4); // Anuestra paginacion se agregara 4 registros por pagina
 		Page<Paciente> pacientes = pacienteService.findAll(pageRequest);// En clientes tenemos la lista paginada
 
-		PageRender<Paciente> pageRender = new PageRender<>("/listapacientes", pacientes);
+		PageRender<Paciente> pageRender = new PageRender<>("/paciente/listapacientes", pacientes);
 
 		model.addAttribute("titulo", "Listado de Pacientes");
 
 		model.addAttribute("pacientes", pacientes); 
 		model.addAttribute("page", pageRender);
 		
-		return "listapacientes";
+		return "paciente/listapacientes";
 	}
 	
 	@RequestMapping(value="/formpaciente")
@@ -55,7 +56,7 @@ public class PacienteController {
 		Paciente paciente =new Paciente();
 		model.put("paciente", paciente);
 		model.put("titulo", "Formulario de paciente");
-		return "formpaciente";
+		return "paciente/formpaciente";
 	}
 	
 	@RequestMapping( value="/formpaciente",method=RequestMethod.POST)
@@ -66,14 +67,14 @@ public class PacienteController {
 		if(result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de paciente");
 			
-			return "formpaciente";
+			return "paciente/formpaciente";
 		}
 		
 		String mensajeFlash = (paciente.getId() != null) ? "Paciente actualizado con Exito!" : "Paciente creado con éxito";
 		pacienteService.save(paciente);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
-		return "redirect:listapacientes";
+		return "redirect:/paciente/listapacientes";
 	}
 	
 	
@@ -88,15 +89,15 @@ public class PacienteController {
 			if (paciente == null) {
 				// Agregamos mensaje flash
 				flash.addFlashAttribute("error", "El ID del paciente no existe en la BD");
-				return "redirect:/listapacientes";
+				return "redirect:/paciente/listapacientes";
 			}
 		} else {
 			flash.addFlashAttribute("error", "El ID del paciente no puede ser cero!");
-			return "redirect:/listapacientes";
+			return "redirect:/paciente/listapacientes";
 		}
 		model.put("paciente", paciente);
 		model.put("titulo", "Editar Paciente");
-		return "formpaciente";
+		return "paciente/formpaciente";
 	}
 	
 	@RequestMapping(value="/eliminarpaciente/{id}")
@@ -110,7 +111,7 @@ public class PacienteController {
 			
 
 		}
-		return "redirect:/listapacientes";
+		return "redirect:/paciente/listapacientes";
 		
 	}
 	
@@ -122,11 +123,11 @@ public class PacienteController {
 
 		if (paciente == null) {
 			flash.addFlashAttribute("error", "El cliente no existe en la BD");
-			return "redirect:/listapacientes";
+			return "redirect:/paciente/listapacientes";
 		}
 		model.put("paciente", paciente);
 		model.put("titulo", "Detalle del paciente: " + paciente.getNombre());
-		return "consultarpaciente";
+		return "paciente/consultarpaciente";
 	}
 	
 	

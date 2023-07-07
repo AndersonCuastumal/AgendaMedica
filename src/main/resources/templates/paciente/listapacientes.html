@@ -21,8 +21,8 @@
 				<div class="row align-items-center">
 				  <div class="col-auto">
 				    <h4 class="card-title">
-				      <a class="btn btn-outline-secondary" th:href="@{/formmedico}">
-				        <label>Agregar Medico</label> &nbsp; <span class="material-symbols-outlined">person_add</span>
+				      <a class="btn btn-outline-secondary" th:href="@{/paciente/formpaciente}">
+				        <label>Agregar Paciente</label> &nbsp; <span class="material-symbols-outlined">person_add</span>
 				      </a>
 				    </h4>
 				  </div>
@@ -34,29 +34,41 @@
 						<th>Id</th>
 						<th>Nombre</th>
 						<th>Apellido</th>
+						<th>Correo</th>
+						<th>Telefono</th>
+						<th>Direccion</th>
+						<th>Fecha de creacion</th>
+						<th>Ultima sesion</th>
 						<th>Estado</th>
 						<th>Editar</th>
 						<th>Eliminar</th>
 						<th>Información</th>
 					</thead>
 					<tbody>
-						<tr th:each="medico:${medicos}">
-							<td th:text="${medico.id}"> </td><!-- Creamos enlace para ir a la vista ver detalles cliente -->
-							<td th:text="${medico.nombre}"></td>
-							<td th:text="${medico.apellido}"></td>
-							<td th:text="${medico.estado}"></td>
+						<tr th:each="paciente:${pacientes}">
+							<td th:text="${paciente.id}"> </td><!-- Creamos enlace para ir a la vista ver detalles cliente -->
+							<td th:text="${paciente.nombre}"></td>
+							<td th:text="${paciente.apellido}"></td>
+							<td th:text="${paciente.correo}"></td>
+							<td th:text="${paciente.telefono}"></td>
+							<td th:text="${paciente.direccion}"></td>
+							<td th:text="${paciente.fecha_creacion}"></td>
+							<td th:text="${paciente.ultimo_inicio_sesion}"></td>
+							<td th:text="${paciente.estado}"></td>
 							
 							<td><a  class="btn btn-outline-secondary"
-								th:href="@{/formmedico/}+${medico.id}">
+								th:href="@{/paciente/formpaciente/}+${paciente.id}">
 									<span class="material-symbols-outlined">edit</span>
-								</a></td>
+								</a>
+							</td>
+							
 							<td><a  class="btn btn-outline-secondary"
-								th:href="@{/eliminarmedico/}+${medico.id}"
+								th:href="@{/paciente/eliminarpaciente/}+${paciente.id}"
 								onclick="return confirm('Estás seguro que quieres eliminar este paciente?');">
 									<span class="material-symbols-outlined">person_remove</span>
 								</a></td>
 								
-							<td> <a  class="btn btn-outline-secondary" th:href="@{/consultarmedico/}+${medico.id}"> 
+							<td> <a  class="btn btn-outline-secondary" th:href="@{/paciente/consultarpaciente/}+${paciente.id}"> 
 									<span class="material-symbols-outlined">badge</span>
 								</a>
 							</td>
