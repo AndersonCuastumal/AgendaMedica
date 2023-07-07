@@ -87,12 +87,12 @@ public class PacienteController {
 
 			if (paciente == null) {
 				// Agregamos mensaje flash
-				flash.addFlashAttribute("error", "El ID del cliente no existe en la BD");
-				return "redirect:/listarpacientes";
+				flash.addFlashAttribute("error", "El ID del paciente no existe en la BD");
+				return "redirect:/listapacientes";
 			}
 		} else {
-			flash.addFlashAttribute("error", "El ID del cliente no puede ser cero!");
-			return "redirect:/listarpacientes";
+			flash.addFlashAttribute("error", "El ID del paciente no puede ser cero!");
+			return "redirect:/listapacientes";
 		}
 		model.put("paciente", paciente);
 		model.put("titulo", "Editar Paciente");

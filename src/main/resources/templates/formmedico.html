@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head> <!-- Importamos el fragmeto de interes del layout -->
+<body>
+
+
+	<header th:replace="layout/layout :: header"></header> <!-- Importamos el fragmeto de interes del layout -->
+
+
+	<div class="container py-4">
+		<div class="card border-light mb-3">
+			<div class="card-header text-center" >
+				    <h3 class="card-title" th:text="${titulo}"></h3>
+			</div>
+
+					
+				<hr class="border boder-success">
+				<div class="card-body">
+					<!--enctype: este tipo de configuracion en el formulario permite subir archivos, fotos, etc ..  -->
+					<form th:action="@{/formmedico}" th:object="${medico}" method="POST">
+						<input type="hidden" th:field="*{id}" />
+						
+			
+							<div class="form-group row py-2">
+								<lable for="nombre" class="col-sm-2 col-form-label">Nombre:</lable>
+								<div class="col-sm-6">
+									<input class="form-control" id="nombre" type="text" th:field="*{nombre}" />
+									<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+								</div>
+			
+							</div>
+			
+							<div class="form-group row py-2">
+			
+								<lable for="apellido" class="col-sm-2 col-form-label">Apellido:</lable>
+								<div class="col-sm-6">
+									<input class="form-control" id="apellido" type="text" th:field="*{apellido}" />
+									<small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
+								</div>
+			
+							</div>
+														
+							<div class="form-group row py-2">
+								<lable for="estado" class="col-sm-2 col-form-label">Estado:</lable>
+								<div class="col-sm-6">
+									<input class="form-control" id="estado" type="text" th:field="*{estado}" />
+									<small class="form-text text-danger" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></small>
+								</div>
+							</div>
+							
+
+							
+							<div class="form-group row py-2">
+								<div class="col-sm-6">
+									
+									<input class="btn btn-secondary" type="submit" th:value="'Guardar'" />
+									
+								</div>
+							</div>
+						
+					</form>
+				</div>
+			
+			
+			<!-- Mostramos los mensajes ocurridos en un mismo espacio -->
+		 	<div th:object="${medico}" th:remove="tag">
+		 		<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+		 			<li th:each="err:${#fields.errors('*')}" th:text="${err}"></li>	
+		 		
+		 		</ul>
+			</div>
+		</div>
+
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
