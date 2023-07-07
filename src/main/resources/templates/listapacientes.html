@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<!-- Importamos el fragmeto de interes del layout -->
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+	<!-- Importamos el fragmeto de interes del layout -->
+
+
+	<div class="container py-4">
+		<div class="card bg-light">
+			<div class="card-header text-center" >
+				    <h3 class="card-title" th:text="${titulo}"></h3>
+			</div>
+
+			<hr class="border boder-success">
+
+			<div class="card-body">
+
+				<div class="row align-items-center">
+				  <div class="col-auto">
+				    <h4 class="card-title">
+				      <a class="btn btn-outline-secondary" th:href="@{/formpaciente}">
+				        <label>Agregar Paciente</label> &nbsp; <span class="material-symbols-outlined">person_add</span>
+				      </a>
+				    </h4>
+				  </div>
+				</div>
+
+
+				<table class="table table-striped">
+					<thead class="thead-inverse">
+						<th>Id</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Correo</th>
+						<th>Telefono</th>
+						<th>Direccion</th>
+						<th>Fecha de creacion</th>
+						<th>Ultima sesion</th>
+						<th>Estado</th>
+						<th>Editar</th>
+						<th>Eliminar</th>
+						<th>Información</th>
+					</thead>
+					<tbody>
+						<tr th:each="paciente:${pacientes}">
+							<td th:text="${paciente.id}"> </td><!-- Creamos enlace para ir a la vista ver detalles cliente -->
+							<td th:text="${paciente.nombre}"></td>
+							<td th:text="${paciente.apellido}"></td>
+							<td th:text="${paciente.correo}"></td>
+							<td th:text="${paciente.telefono}"></td>
+							<td th:text="${paciente.direccion}"></td>
+							<td th:text="${paciente.fecha_creacion}"></td>
+							<td th:text="${paciente.ultimo_inicio_sesion}"></td>
+							<td th:text="${paciente.estado}"></td>
+							
+							<td><a  class="btn btn-outline-secondary"
+								th:href="@{/formpaciente/}+${paciente.id}">
+									<span class="material-symbols-outlined">edit</span>
+								</a></td>
+							<td><a  class="btn btn-outline-secondary"
+								th:href="@{/eliminarpaciente/}+${paciente.id}"
+								onclick="return confirm('Estás seguro que quieres eliminar este paciente?');">
+									<span class="material-symbols-outlined">person_remove</span>
+								</a></td>
+								
+							<td> <a  class="btn btn-outline-secondary" th:href="@{/consultarpaciente/}+${paciente.id}"> 
+									<span class="material-symbols-outlined">badge</span>
+								</a>
+							</td>
+							
+						</tr>
+
+					</tbody>
+				</table>
+				
+				<nav th:replace="paginator-nav :: paginator"></nav>
+				
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+		integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+		crossorigin="anonymous"></script>
+
+</body>
+</html>
