@@ -11,17 +11,12 @@
 				    <h3 class="card-title" th:text="${titulo}"></h3>
 			</div>
 			<div class="card-body">
-				
-
-				
+					
 
 
 				<ul class="list-group list-group-flush">
 				    <li class="list-group-item">
-				      <strong>Nombre:</strong> <span th:text="${medico.nombre}"></span>
-				    </li>
-				    <li class="list-group-item">
-				      <strong>Apellido:</strong> <span th:text="${medico.apellido}"></span>
+				      <strong>Medico:</strong> <span th:text="${medico.nombre}+' '+${medico.apellido}"></span>
 				    </li>
 				    <li class="list-group-item">
 				      <strong>Estado:</strong> <span th:text="${medico.estado}"></span>
@@ -34,13 +29,9 @@
 					<div class="card-body">
 						<div class="row align-items-center">
 						  <div class="col">
-						    <h4 class="card-title">Lista facturas</h4>
+						    <h4 class="card-title">Lista Citas Medicas</h4>
 						  </div>
-						  <div class="col-auto text-right">
-						    <h4>
-						      <a class="btn btn-outline-secondary" th:href="@{/horario/form/}+${medico.id}" th:text="'Solicitar Cita'"></a>
-						    </h4>
-						  </div>
+						  
 						</div>
 
 						<div class="alert alert-info my-4" th:if="${#lists.isEmpty(medico.horarios)}" th:text="'No hay citas asignadas para el medico '+ ${medico.nombre} +' '+ ${medico.apellido}"></div>

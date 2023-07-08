@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/layout :: head"></head>
 <!-- Importamos el fragmeto de interes del layout -->
 <body>
@@ -21,7 +21,7 @@
 				<div class="row align-items-center">
 				  <div class="col-auto">
 				    <h4 class="card-title">
-				      <a class="btn btn-outline-secondary" th:href="@{/paciente/formpaciente}">
+				      <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-secondary" th:href="@{/paciente/formpaciente}">
 				        <label>Agregar Paciente</label> &nbsp; <span class="material-symbols-outlined">person_add</span>
 				      </a>
 				    </h4>
@@ -40,8 +40,9 @@
 						<th>Fecha de creacion</th>
 						<th>Ultima sesion</th>
 						<th>Estado</th>
-						<th>Editar</th>
-						<th>Eliminar</th>
+						<th>Agendar Cita</th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
 						<th>Información</th>
 					</thead>
 					<tbody>
@@ -55,14 +56,17 @@
 							<td th:text="${paciente.fecha_creacion}"></td>
 							<td th:text="${paciente.ultimo_inicio_sesion}"></td>
 							<td th:text="${paciente.estado}"></td>
-							
 							<td><a  class="btn btn-outline-secondary"
+								th:href="@{/cita/form/}+${paciente.id}">
+									<span class="material-symbols-outlined">medical_services</span>
+								</a></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a  class="btn btn-outline-secondary"
 								th:href="@{/paciente/formpaciente/}+${paciente.id}">
 									<span class="material-symbols-outlined">edit</span>
 								</a>
 							</td>
 							
-							<td><a  class="btn btn-outline-secondary"
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a  class="btn btn-outline-secondary"
 								th:href="@{/paciente/eliminarpaciente/}+${paciente.id}"
 								onclick="return confirm('Estás seguro que quieres eliminar este paciente?');">
 									<span class="material-symbols-outlined">person_remove</span>

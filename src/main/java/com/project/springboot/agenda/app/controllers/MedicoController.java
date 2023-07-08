@@ -19,8 +19,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.springboot.agenda.app.models.entity.Medico;
+import com.project.springboot.agenda.app.models.service.ICrudService;
 
-import com.project.springboot.agenda.app.models.service.IMedicoService;
 
 import com.project.springboot.agenda.app.util.paginator.PageRender;
 
@@ -33,7 +33,7 @@ import jakarta.validation.Valid;
 public class MedicoController {
 	@Autowired
 
-	private IMedicoService medicoService;
+	private ICrudService medicoService;
 	
 	@RequestMapping(value="/listamedicos", method=RequestMethod.GET)
 	public String listar(@RequestParam(name="page", defaultValue="0") int page, Model model) {

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head> <!-- Importamos el fragmeto de interes del layout -->
+<body>
+
+
+	<header th:replace="layout/layout :: header"></header> <!-- Importamos el fragmeto de interes del layout -->
+
+
+	<div class="container py-4">
+		<div class="card border-danger  mb-3">
+			<div class="card-header text-center" >
+				    <h3 class="card-title"> Error: acceso Denegado!</h3>
+			</div>
+
+					
+				<hr class="border boder-success">
+				<div class="card-body">
+					<h5>Lo sentimos <span th:text="${#authentication.name}"></span>, No tienes permisos para acceder a este recurso.</h5>
+					<a th:href="@{/paciente/listapacientes}" class="btn btn-outline-secondary" role="button">Ir al inicio</a>
+				</div>
+			
+			
+			
+		</div>
+
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

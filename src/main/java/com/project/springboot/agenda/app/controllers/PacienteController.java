@@ -19,7 +19,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.springboot.agenda.app.models.entity.Paciente;
-import com.project.springboot.agenda.app.models.service.IPacienteService;
+import com.project.springboot.agenda.app.models.service.ICrudService;
+
 import com.project.springboot.agenda.app.util.paginator.PageRender;
 
 
@@ -33,13 +34,13 @@ public class PacienteController {
 	
 	@Autowired
 
-	private IPacienteService pacienteService;
+	private ICrudService pacienteService;
 	
 	@RequestMapping(value="/listapacientes", method=RequestMethod.GET)
 	public String listar(@RequestParam(name="page", defaultValue="0") int page, Model model) {
 		
 		Pageable pageRequest = PageRequest.of(page, 4); // Anuestra paginacion se agregara 4 registros por pagina
-		Page<Paciente> pacientes = pacienteService.findAll(pageRequest);// En clientes tenemos la lista paginada
+		Page<Paciente> pacientes = pacienteService.findAllPaciente(pageRequest);// En clientes tenemos la lista paginada
 
 		PageRender<Paciente> pageRender = new PageRender<>("/paciente/listapacientes", pacientes);
 
@@ -71,7 +72,7 @@ public class PacienteController {
 		}
 		
 		String mensajeFlash = (paciente.getId() != null) ? "Paciente actualizado con Exito!" : "Paciente creado con éxito";
-		pacienteService.save(paciente);
+		pacienteService.savePaciente(paciente);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
 		return "redirect:/paciente/listapacientes";
@@ -84,7 +85,7 @@ public class PacienteController {
 		Paciente paciente=null;
 		
 		if (id > 0) {
-			paciente = pacienteService.findOne(id);
+			paciente = pacienteService.findPacienteById(id);
 
 			if (paciente == null) {
 				// Agregamos mensaje flash
@@ -105,7 +106,7 @@ public class PacienteController {
 		if (id > 0) {
 
 	
-			pacienteService.delete(id);
+			pacienteService.deletePaciente(id);
 			flash.addFlashAttribute("success", "Paciente eliminado con éxito!!");
 
 			
@@ -118,7 +119,7 @@ public class PacienteController {
 	
 	@GetMapping(value = "/consultarpaciente/{id}")
 	public String ver(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
-		Paciente paciente = pacienteService.findOne(id);
+		Paciente paciente = pacienteService.findPacienteById(id);
 		
 
 		if (paciente == null) {

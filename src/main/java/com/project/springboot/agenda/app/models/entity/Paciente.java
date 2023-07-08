@@ -15,7 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -73,13 +73,13 @@ public class Paciente implements Serializable {
 	
 	//Un medico puede tener muchas citas
 	@OneToMany(mappedBy="paciente",fetch=FetchType.LAZY,cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<Horario> horarios;
+	private List<Cita> citas;
 
 	private static final long serialVersionUID = 1L;
 	
 	//-- constructor
 	public Paciente() {
-		horarios=new ArrayList<Horario>();
+		citas=new ArrayList<Cita>();
 	}
 	
 	// --- metodos
@@ -173,16 +173,16 @@ public class Paciente implements Serializable {
 		return serialVersionUID;
 	}
 
-	public List<Horario> getHorarios() {
-		return horarios;
+	public List<Cita> getHorarios() {
+		return citas;
 	}
 
-	public void setHorarios(List<Horario> horarios) {
-		this.horarios = horarios;
+	public void setHorarios(List<Cita> citas) {
+		this.citas = citas;
 	}
 	
-	public void addHorario(Horario horario) {
-		horarios.add(horario);
+	public void addHorario(Cita cita) {
+		citas.add(cita);
 	}
 	
 

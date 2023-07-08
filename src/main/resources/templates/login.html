@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head> <!-- Importamos el fragmeto de interes del layout -->
+<body>
+
+
+	<header th:replace="layout/layout :: header"></header> <!-- Importamos el fragmeto de interes del layout -->
+
+
+	<div class="container py-4">
+		<div class="card border-light mb-3">
+			<div class="card-header text-center" >
+				    <h3 class="card-title" >Inciar Sesión</h3>
+			</div>
+
+					
+				<hr class="border boder-success">
+				<div class="card-body">
+						<form th:action="@{/login}" method="post">
+							<div class="form-group col-sm-6">
+								<input type="text" name="username" id="username" placeholder="Usuario" autofocus required class="form-control" />
+							</div>
+							
+							<div class="form-group col-sm-6">
+								<input type="password" name="password" placeholder="Contraseña" required class="form-control" />
+							</div>
+							
+							<div class="form-group col-sm-6">
+								<input type="submit"  class="btn btn-lg btn-primary btn-block" value="Ingresar"/>
+							</div>
+							
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+						</form>				
+				</div>
+
+		</div>
+
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

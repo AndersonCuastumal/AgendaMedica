@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head> <!-- Importamos el fragmeto de interes del layout -->
+<body>
+
+
+	<header th:replace="~{layout/layout :: header}"></header> <!-- Importamos el fragmeto de interes del layout -->
+
+
+	<div class="container py-4">
+		<div class="card border-light mb-3">
+				<div class="card-header text-center" >
+					    <h3 class="card-title" th:text="${titulo}"></h3>
+				</div>
+
+					
+				<hr class="border boder-success">
+				<div class="card-body">
+					<h4><a class="btn btn-outline-secondary"
+								th:href="@{/consultar/}+${cita.paciente.id}" th:text="'Ver Detalle'"></a></h4>
+					<!--enctype: este tipo de configuracion en el formulario permite subir archivos, fotos, etc ..  -->
+					<form th:action="@{/cita/form}" th:object="${cita}" method="post">
+										
+							
+							
+							<div class="form-group row py-2">
+								<lable class="col-sm-2 col-form-label">Paciente ID:</lable>
+								<div class="col-sm-6">
+									<input id="paciente" type="text" th:value="${cita.paciente.id}" class="form-control" disabled='disabled' />
+									
+								</div>
+			
+							</div>
+							
+							<div class="form-group row py-2">
+								<lable class="col-sm-2 col-form-label">Medico ID:</lable>
+							    <div class="col-sm-6">
+							        <select id="medico" th:field="*{medico.id}" class="form-control">
+							            <option th:each="medico : ${medicos}" th:value="${medico.id}" th:text="${medico.nombre}"></option>
+							        </select>
+							    </div>
+			
+							</div>
+							
+							<div class="form-group row py-2">
+								<lable for="dia" class="col-sm-2 col-form-label">Día Cita:</lable>
+								<input class="form-control" id="dia" type="date" th:field="*{dia_atencion}" th:errorclass="'form-control is-invalid'"/>
+								
+			
+							</div>
+							
+			
+							<div class="form-group row py-2">
+								<lable for="hora" class="col-sm-2 col-form-label">Hora Cita:</lable>
+								<input class="form-control" id="hora" type="time" th:field="*{hora_atencion}" th:errorclass="'form-control is-invalid'"/>
+								
+			
+							</div>
+							
+							<div class="form-group row py-2">
+								<lable for="descripcion" class="col-sm-2 col-form-label">Descripción:</lable>
+								<div class="col-sm-6">
+									<input class="form-control" id="descripcion" type="text" th:field="*{descripcion}" th:errorclass="'form-control is-invalid'"/>
+									
+								</div>
+			
+							</div>
+							
+						
+							
+							<div class="form-group row py-2">
+								<div class="col-sm-6">
+									
+									<input class="btn btn-secondary" type="submit" th:value="${titulo}" />
+									
+								</div>
+							</div>
+						
+					</form>
+				</div>
+			
+			
+		</div>
+
+	</div>
+	
+	<footer th:replace="~{layout/layout :: footer}"></footer>
+
+
+</body>
+</html>
