@@ -1,11 +1,20 @@
 package com.project.springboot.agenda.app.controllers;
 
+import java.util.Collection;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +32,7 @@ import com.project.springboot.agenda.app.models.service.ICrudService;
 
 import com.project.springboot.agenda.app.util.paginator.PageRender;
 
-
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -31,13 +40,24 @@ import jakarta.validation.Valid;
 @SessionAttributes("paciente")
 public class PacienteController {
 	
-	
+	private final Logger log=LoggerFactory.getLogger(getClass());
 	@Autowired
 
 	private ICrudService pacienteService;
 	
 	@RequestMapping(value="/listapacientes", method=RequestMethod.GET)
-	public String listar(@RequestParam(name="page", defaultValue="0") int page, Model model) {
+	public String listar(@RequestParam(name="page", defaultValue="0") int page,
+			Model model,
+			Authentication authentication,
+			HttpServletRequest request) {
+		
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		SecurityContextHolderAwareRequestWrapper securityContext =new SecurityContextHolderAwareRequestWrapper(request, "");
+		if(securityContext.isUserInRole("ADMIN")) {
+			log.info("SecurityContextHolderAwareRequestWrapper: inicio sesion ".concat(auth.getName()).concat(" Tienes acceso"));
+		}else {
+			log.info("SecurityContextHolderAwareRequestWrapper: inicio sesion ".concat(auth.getName()).concat("No Tienes acceso"));
+		}
 		
 		Pageable pageRequest = PageRequest.of(page, 4); // Anuestra paginacion se agregara 4 registros por pagina
 		Page<Paciente> pacientes = pacienteService.findAllPaciente(pageRequest);// En clientes tenemos la lista paginada
@@ -131,5 +151,22 @@ public class PacienteController {
 		return "paciente/consultarpaciente";
 	}
 	
+	
+	private boolean hasRole(String role) {
+		SecurityContext context=SecurityContextHolder.getContext();
+		if(context==null) {
+			return false;
+		}
+		
+		Authentication auth =context.getAuthentication();
+		
+		if(auth==null) {
+			return false;
+		}
+		
+		Collection<? extends GrantedAuthority> authorities=auth.getAuthorities();
+		
+		return authorities.contains(new SimpleGrantedAuthority(role));
+	}
 	
 }

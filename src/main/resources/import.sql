@@ -21,7 +21,12 @@ INSERT INTO medicos (id, nombre, apellido, estado) VALUES (2, 'Jose', 'Gomez', '
 INSERT INTO medicos (id, nombre, apellido, estado) VALUES (3, 'Pedro', 'Narva', 'activo');
 
 
+INSERT INTO usuarios (username,contrasena,estado) VALUES('andres','$2a$10$O9wxmH/AeyZZzIS09Wp8YOEMvFnbRVJ8B4dmAMVSGloR62lj.yqXG',1);
+INSERT INTO usuarios (username,contrasena,estado) VALUES('admin','$2a$10$DOMDxjYyfZ/e7RcBfUpzqeaCs8pLgcizuiQWXPkU35nOhZlFcE9MS',1);
 
+INSERT INTO authorities (user_id,authority) VALUES(1,'ROLE_USER');
+INSERT INTO authorities (user_id,authority) VALUES(2,'ROLE_ADMIN');
+INSERT INTO authorities (user_id,authority) VALUES(2,'ROLE_USER');
 
 INSERT INTO citas (id, paciente_id, medico_id, descripcion, hora_atencion, dia_atencion) VALUES (1, 1, 2, 'Cita general', '9:30', '2023-07-18');
 INSERT INTO citas (id, paciente_id, medico_id, descripcion, hora_atencion, dia_atencion) VALUES (2, 2, 2, 'Cita general', '9:50', '2023-07-10');
