@@ -44,7 +44,7 @@
 							<td th:text="${medico.id}"> </td><!-- Creamos enlace para ir a la vista ver detalles cliente -->
 							<td th:text="${medico.nombre}"></td>
 							<td th:text="${medico.apellido}"></td>
-							<td th:text="${medico.estado}"></td>
+							<td th:text="${medico.estado ? 'Activo' : 'Inactivo'}"></td>
 							
 							<td><a  class="btn btn-outline-secondary"
 								th:href="@{/medico/formmedico/}+${medico.id}">

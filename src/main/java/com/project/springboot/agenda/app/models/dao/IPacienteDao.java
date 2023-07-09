@@ -9,5 +9,7 @@ import com.project.springboot.agenda.app.models.entity.Paciente;
 
 public interface IPacienteDao extends PagingAndSortingRepository<Paciente, Long>, CrudRepository<Paciente,Long>{
 
+	Paciente findPacienteByCorreo(String correo);
+
 }
 

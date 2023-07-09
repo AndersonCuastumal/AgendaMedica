@@ -56,13 +56,19 @@
 
 							
 							<div class="form-group row py-2">
-								<lable for="descripcion" class="col-sm-2 col-form-label">Descripción:</lable>
-								<div class="col-sm-6">
-									<input class="form-control" id="descripcion" type="text" th:field="*{descripcion}" th:errorclass="'form-control is-invalid'"/>
-									
-								</div>
-			
+							    <label for="descripcion" class="col-sm-2 col-form-label">Tipo: </label>
+							    <div class="col-sm-6">
+							        <select class="form-control" id="descripcion" th:field="*{descripcion}" th:errorclass="'form-control is-invalid'" required>
+							            <option value="">Seleccionar un tipo de cita</option>
+							            <option value="Cita por dolencia">Cita por dolencia</option>
+							            <option value="Cita de seguimiento">Cita de seguimiento</option>
+							            <option value="Cita preoperatoria">Cita preoperatoria</option>
+							            <option value="Cita de control">Cita de control</option>
+							            <option value="Cita de urgencia">Cita de urgencia</option>
+							        </select>
+							    </div>
 							</div>
+
 							
 						
 							

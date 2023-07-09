@@ -199,6 +199,12 @@ public class CrudServiceImpl implements ICrudService {
 		return pacienteDao.save(paciente);
 	}
 
+	@Override
+	public Paciente findPacienteByCorreo(String correo) {
+		// TODO Auto-generated method stub
+		return pacienteDao.findPacienteByCorreo(correo);
+	}
+
 	
 
 }

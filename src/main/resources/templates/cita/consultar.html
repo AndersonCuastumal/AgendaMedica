@@ -18,12 +18,12 @@
 				</a>
 				<ul class="list-group my-2">
 					<li class="list-group-item list-group-item-primary"
-						th:text="'Datos del cliente'"></li>
-					<li class="list-group-item" th:text="${cita.paciente.nombre}+' '+${cita.paciente.apellido}"></li>
-					<li class="list-group-item" th:text="${cita.paciente.telefono}"></li>
-					<li class="list-group-item" th:text="${cita.paciente.direccion}"></li>
-					<li class="list-group-item" th:text="${cita.paciente.correo}"></li>
-					<li class="list-group-item" th:text="${cita.paciente.estado}"></li>
+						th:text="'Datos del paciente'"></li>
+					<li class="list-group-item" th:text="'Nombre Completo: ' +${cita.paciente.nombre}+' '+${cita.paciente.apellido}"></li>
+					<li class="list-group-item" th:text="'Contacto: ' + ${cita.paciente.telefono}"></li>
+					<li class="list-group-item" th:text="'Dirección: '+${cita.paciente.direccion}"></li>
+					<li class="list-group-item" th:text="'Correo Electronico: '+${cita.paciente.correo}"></li>
+					<li class="list-group-item" th:text="'Estado: '+(${cita.paciente.estado} ? 'Activo' : 'Inactivo')"></li>
 				</ul>
 
 				<ul class="list-group my-2">
@@ -39,9 +39,9 @@
 					<li class="list-group-item"
 						th:text="'Hora cita medica: ' + ${cita.hora_cita}"></li>
 					<li class="list-group-item"
-						th:text="'Medico acargo: ' + ${cita.medico.nombre}+' '+${cita.medico.apellido}"></li>
+						th:text="'Medico a cargo: ' + ${cita.medico.nombre}+' '+${cita.medico.apellido}"></li>
 					<li class="list-group-item"
-						th:text="'Estado medico: ' + ${cita.medico.estado}"></li>
+						th:text="'Estado medico: ' + (${cita.medico.estado} ? 'Activo' : 'Inactivo')"></li>
 					<li class="list-group-item"
 						th:text="'Fecha de expedición: ' + ${cita.fecha_solicitud}"></li>
 					

@@ -55,7 +55,7 @@
 							<td th:text="${paciente.direccion}"></td>
 							<td th:text="${paciente.fecha_creacion}"></td>
 							<td th:text="${paciente.ultimo_inicio_sesion}"></td>
-							<td th:text="${paciente.estado}"></td>
+							<td th:text="${paciente.estado ? 'Activo' : 'Inactivo'}"></td>
 							<td><a  class="btn btn-outline-secondary"
 								th:href="@{/cita/form/}+${paciente.id}">
 									<span class="material-symbols-outlined">medical_services</span>

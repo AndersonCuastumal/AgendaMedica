@@ -19,7 +19,7 @@
 				      <strong>Medico:</strong> <span th:text="${medico.nombre}+' '+${medico.apellido}"></span>
 				    </li>
 				    <li class="list-group-item">
-				      <strong>Estado:</strong> <span th:text="${medico.estado}"></span>
+				      <strong>Estado:</strong> <span th:text="${medico.estado ? 'Activo' : 'Inactivo'}"></span>
 				    </li>
 		
 				 </ul>

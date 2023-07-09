@@ -1,6 +1,8 @@
 package com.project.springboot.agenda.app.controllers;
 
+import java.security.Principal;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,10 +31,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.springboot.agenda.app.models.dao.IUsuarioDao;
 import com.project.springboot.agenda.app.models.entity.Paciente;
+import com.project.springboot.agenda.app.models.entity.Role;
 import com.project.springboot.agenda.app.models.entity.Usuario;
 import com.project.springboot.agenda.app.models.service.ICrudService;
-
+import com.project.springboot.agenda.app.models.service.JpaUsuariosDetailsService;
 import com.project.springboot.agenda.app.util.paginator.PageRender;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,6 +51,9 @@ public class PacienteController {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;	
+	
+	@Autowired
+	private  IUsuarioDao usuarioDao; 
 	
 	@Autowired
 	private ICrudService pacienteService;
@@ -96,17 +104,31 @@ public class PacienteController {
 			return "paciente/formpaciente";
 		}
 		
-		Usuario usuario=new Usuario();
-		usuario.setCorreo(paciente.getCorreo());
 		
-		String contrasenaCodificada = passwordEncoder.encode(paciente.getContrasena());
-	    usuario.setContrasena(contrasenaCodificada);
-	    usuario.setEstado(true);
-	    paciente.setUsuario(usuario);
+		if(paciente.getId() != null) {
+			try {
+				Usuario usuario = usuarioDao.findByCorreo(paciente.getCorreo());
+				actualizarUsuario(usuario, paciente);
+			}catch(Exception e) {
+				Usuario usuario=crearUsuario(paciente);
+				paciente.setUsuario(usuario);
+			}
+			
+			
+		}else {
+			Usuario usuario=crearUsuario(paciente);
+		    
+		    paciente.setUsuario(usuario);
+		}
+		
 	    
 	    
 		String mensajeFlash = (paciente.getId() != null) ? "Paciente actualizado con Exito!" : "Paciente creado con éxito";
 		pacienteService.savePaciente(paciente);
+		
+		
+
+		
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
 		return "redirect:/paciente/listapacientes";
@@ -130,6 +152,9 @@ public class PacienteController {
 			flash.addFlashAttribute("error", "El ID del paciente no puede ser cero!");
 			return "redirect:/paciente/listapacientes";
 		}
+		
+		
+		
 		model.put("paciente", paciente);
 		model.put("titulo", "Editar Paciente");
 		return "paciente/formpaciente";
@@ -152,19 +177,25 @@ public class PacienteController {
 	
 	
 	@GetMapping(value = "/consultarpaciente/{id}")
-	public String ver(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
-		Paciente paciente = pacienteService.findPacienteById(id);
+	
+	public String ver(@PathVariable(value = "id") Long id, Map<String, Object> model, Principal principal, RedirectAttributes flash) {
 		
-
+		
+		    
+	    Paciente paciente = pacienteService.findPacienteById(id);
+		
 		if (paciente == null) {
 			flash.addFlashAttribute("error", "El cliente no existe en la BD");
-			return "redirect:/paciente/listapacientes";
+			return "redirect:/login";
 		}
+		
+
+		
 		model.put("paciente", paciente);
 		model.put("titulo", "Detalle del paciente: " + paciente.getNombre());
 		return "paciente/consultarpaciente";
 	}
-	
+
 	
 	private boolean hasRole(String role) {
 		SecurityContext context=SecurityContextHolder.getContext();
@@ -181,6 +212,49 @@ public class PacienteController {
 		Collection<? extends GrantedAuthority> authorities=auth.getAuthorities();
 		
 		return authorities.contains(new SimpleGrantedAuthority(role));
+	}
+	
+	
+	@GetMapping("/perfil")
+	public String verPerfilPaciente(Model model, Principal principal) {
+	    // Obtener el nombre de usuario del paciente autenticado
+	    String correo = principal.getName();
+
+	    // Obtener el paciente por su nombre de usuario
+	    Paciente paciente = pacienteService.findPacienteByCorreo(correo);
+
+	    if (paciente == null) {
+	        // El paciente no existe en la base de datos, redirigir a una página de error o manejar el caso apropiadamente
+	        return "redirect:/login";
+	    }
+
+	    // Agregar el paciente al modelo para mostrar en la vista
+	    model.addAttribute("paciente", paciente);
+	    model.addAttribute("titulo", "Detalle del paciente: " + paciente.getNombre());
+	    // Redirigir al perfil del paciente
+	    return "redirect:/paciente/consultarpaciente/"+paciente.getId();
+	}
+	
+	
+	private Usuario crearUsuario(Paciente paciente) {
+	    Usuario usuario = new Usuario();
+	    usuario.setCorreo(paciente.getCorreo());
+	    String contrasenaCodificada = passwordEncoder.encode(paciente.getContrasena());
+	    usuario.setContrasena(contrasenaCodificada);
+	    usuario.setEstado(paciente.getEstado());
+	    
+	    Role role = new Role();
+	    role.setAuthority("ROLE_USER");
+	    usuario.setRoles(Collections.singletonList(role));
+	    
+	    return usuario;
+	}
+	
+	private void actualizarUsuario(Usuario usuario, Paciente paciente) {
+	    usuario.setCorreo(paciente.getCorreo());
+	    String contrasenaCodificada = passwordEncoder.encode(paciente.getContrasena());
+	    usuario.setContrasena(contrasenaCodificada);
+	    usuario.setEstado(paciente.getEstado());
 	}
 	
 }

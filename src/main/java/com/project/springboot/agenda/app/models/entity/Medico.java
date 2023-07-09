@@ -10,7 +10,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
+
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -31,7 +31,7 @@ public class Medico implements Serializable{
 
 	private String nombre;
 	private String apellido;
-	private String estado;
+	private Boolean estado;
 	
 	//Un medico puede tener muchas citas
 	@OneToMany(mappedBy="medico",fetch=FetchType.LAZY,cascade=CascadeType.ALL,orphanRemoval=true)
@@ -71,11 +71,11 @@ public class Medico implements Serializable{
 		this.apellido = apellido;
 	}
 
-	public String getEstado() {
+	public Boolean getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 

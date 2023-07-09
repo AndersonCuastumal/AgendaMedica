@@ -26,7 +26,7 @@ public interface ICrudService {
 	public void deletePaciente(Long id);
 	public Page<Paciente> findAllPaciente(Pageable pageable);
 	public Paciente registrarPaciente(Paciente paciente);
-	
+	public Paciente findPacienteByCorreo(String correo);
 	
 	public void saveCita(Cita cita);
 	

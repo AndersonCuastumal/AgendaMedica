@@ -70,14 +70,16 @@ public class Paciente implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date ultimo_inicio_sesion;
-	private String estado;
+	
+	
+	private Boolean estado;
 	
 	//Un medico puede tener muchas
 	@OneToMany(mappedBy="paciente",fetch=FetchType.LAZY,cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Cita> citas;
 	
 	// Relacion uno a uno relacion bidireccional
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
@@ -175,11 +177,11 @@ public class Paciente implements Serializable {
 		this.ultimo_inicio_sesion = ultimo_inicio_sesion;
 	}
 
-	public String getEstado() {
+	public Boolean getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 

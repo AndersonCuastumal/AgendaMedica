@@ -1,6 +1,7 @@
 package com.project.springboot.agenda.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -38,10 +39,19 @@ public class Usuario implements Serializable {
 	@JoinColumn(name = "user_id")
 	private List<Role> roles;
 	
-	@OneToOne(mappedBy = "usuario")
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Paciente paciente;
 
 	private static final long serialVersionUID = 1L;
+
+	
+	
+	
+	
+	public Usuario() {
+		this.roles= new ArrayList<>();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Long getId() {
 		return id;

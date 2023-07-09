@@ -35,11 +35,11 @@ public class SpringSecurityConfig {
         http
             .authorizeHttpRequests((authz) -> {
                 try {
-                    authz.requestMatchers("/", "/css/**", "/js/**", "/images/**", "/paciente/listapacientes").permitAll()
+                    authz.requestMatchers("/", "/css/**", "/js/**", "/images/**").permitAll()
 		            .requestMatchers("/paciente/formpaciente/**").hasAnyRole("ADMIN")
 		            .requestMatchers("/paciente/eliminarpaciente/**").hasAnyRole("ADMIN")
 		            .requestMatchers("/paciente/consultarpaciente/**").hasAnyRole("USER")
-		            .requestMatchers("/paciente/listapacientes/**").hasAnyRole("USER")
+		            .requestMatchers("/paciente/listapacientes/**").hasAnyRole("ADMIN")
 		            .requestMatchers("/medico/listamedicos/**").hasAnyRole("ADMIN")
 		            .requestMatchers("/medico/formmedico/**").hasAnyRole("ADMIN")
 		            .requestMatchers("/medico/consultarmedico/**").hasAnyRole("ADMIN")

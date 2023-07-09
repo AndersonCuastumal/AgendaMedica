@@ -70,6 +70,7 @@
 			
 								<lable for="direccion" class="col-sm-2 col-form-label">direccion:</lable>
 								<div class="col-sm-6">
+									
 									<input class="form-control" id="direccion" type="text" th:field="*{direccion}" />
 									<small class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small>
 								</div>
@@ -77,11 +78,15 @@
 							</div>
 							
 							<div class="form-group row py-2">
-								<lable for="estado" class="col-sm-2 col-form-label">Estado:</lable>
-								<div class="col-sm-6">
-									<input class="form-control" id="estado" type="text" th:field="*{estado}" />
-									<small class="form-text text-danger" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></small>
-								</div>
+							    <label for="estado" class="col-sm-2 col-form-label">Estado:</label>
+							    <div class="col-sm-6">
+							        <select class="form-control" id="estado" th:field="*{estado}" required>
+							        	<option value="">Seleccionar un tipo de estado</option>
+							            <option value=true>Activo</option>
+							            <option value=false>Inactivo</option>
+							        </select>
+							        <small class="form-text text-danger" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></small>
+							    </div>
 							</div>
 							
 
