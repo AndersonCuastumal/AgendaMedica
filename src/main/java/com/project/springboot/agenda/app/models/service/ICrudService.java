@@ -1,5 +1,6 @@
 package com.project.springboot.agenda.app.models.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -30,7 +31,7 @@ public interface ICrudService {
 	public void saveCita(Cita cita);
 	
 	public List<Horario> findAllHorario();
-	public List<Horario> getHorariosByMedicoId(Long medicoId);
+	public List<Horario> getHorariosByMedicoId(Long medicoId, LocalDate fecha);
 	public Cita findCitaById(Long id);
 	public void deleteCita(Long id);
 	

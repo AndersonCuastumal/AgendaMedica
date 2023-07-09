@@ -8,32 +8,35 @@
 
 		$(document).ready(function() {
 		    $('#medico').change(function() {
-		        var medicoId = $(this).val();
 		        
-		        if (medicoId) {
+		        var fecha = $('#fecha').val();
+		        var medicoId = $('#medico').val();
+		        
+		        if (medicoId && fecha) {
+		        	console.log(fecha);
+		        	console.log(medicoId);
 		            $.ajax({
-		                url: "/cita/horarios/" + medicoId,
+		                url: "/cita/horarios/" + medicoId +"/" + fecha,
 		                dataType: "json",
 		                success: function(data) {
-		                    $('#horario').empty(); // Vaciar el select antes de agregar nuevas opciones
-		                    if (data.length > 0) {
-		                        $.each(data, function(index, horario) {
-		                            $('#horario').append('<option id="' + horario.id + '" value="' + horario.fecha + ' ' + horario.hora + '">' + horario.fecha + ' ' + horario.hora + '</option>');
-		                        });
-		                    } else {
-		                        $('#horario').append('<option value="">No hay horarios disponibles</option>');
-		                    }
-		                    $('#horario').removeAttr('disabled'); // Habilitar el select
+		                    var horarioSelect = $('#horario'); // Vaciar el select antes de agregar nuevas opciones
+		                    horarioSelect.empty();
+		                    horarioSelect.append('<option value="">Seleccione un horario</option>');
+		                    data.forEach(function(horario) {
+                            horarioSelect.append('<option id="' + horario.id + '" value="' + horario.hora + '">' + horario.hora + '</option>');
+                        });
+                        horarioSelect.prop('disabled', false);
+		                    
 		                },
 		                error: function() {
 		                    console.error('Error al obtener los horarios del médico');
 		                }
 		            });
 		        } else {
-		            $('#horario').attr('disabled', 'disabled');
 		            $('#horario').empty();
-		            $('#horario').append('<option value="">Seleccione un médico</option>');
-		        }
+	                $('#horario').append('<option value="">Seleccione un horario</option>');
+	                $('#horario').prop('disabled', true);
+			        }
 		    });
 		});
 

@@ -1,7 +1,9 @@
 package com.project.springboot.agenda.app.models.entity;
 
 import java.io.Serializable;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -34,8 +36,10 @@ public class Cita implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fecha_solicitud;
 
-	@NotEmpty
-	private String fecha_cita;
+	
+	private LocalDate fecha_cita;
+	
+	private LocalTime hora_cita;
 
 	// -Tipo de Relacion entidad
 
@@ -85,11 +89,19 @@ public class Cita implements Serializable {
 
 
 
-	public String getFecha_cita() {
+	public LocalTime getHora_cita() {
+		return hora_cita;
+	}
+
+	public void setHora_cita(LocalTime hora_cita) {
+		this.hora_cita = hora_cita;
+	}
+
+	public LocalDate getFecha_cita() {
 		return fecha_cita;
 	}
 
-	public void setFecha_cita(String fecha_cita) {
+	public void setFecha_cita(LocalDate fecha_cita) {
 		this.fecha_cita = fecha_cita;
 	}
 

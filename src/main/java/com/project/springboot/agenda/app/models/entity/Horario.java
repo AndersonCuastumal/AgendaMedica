@@ -1,16 +1,16 @@
 package com.project.springboot.agenda.app.models.entity;
 
 import java.io.Serializable;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -24,14 +24,10 @@ public class Horario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Temporal(TemporalType.DATE)
-	private Date fecha;
 
 	@Temporal(TemporalType.TIME)
-	private Date hora;
+	private LocalTime hora;
 
-
-		
 	
 	private static final long serialVersionUID = 1L;
 
@@ -43,19 +39,12 @@ public class Horario implements Serializable {
 		this.id = id;
 	}
 
-	public Date getFecha() {
-		return fecha;
-	}
 
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
-	public Date getHora() {
+	public LocalTime getHora() {
 		return hora;
 	}
 
-	public void setHora(Date hora) {
+	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
 

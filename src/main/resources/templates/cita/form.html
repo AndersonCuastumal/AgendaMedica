@@ -32,21 +32,25 @@
 			
 							</div>
 							
-							<div class="form-group row py-2">
-							    <label class="col-sm-2 col-form-label">Médico ID:</label>
-							    <div class="col-sm-6">
-							        <select id="medico" class="form-control" th:field="*{medico.id}">
-							            <option th:each="medico : ${medicos}" th:value="${medico.id}"  th:text="${medico.nombre}"></option>
-							        </select>
-							    </div>
-							</div>
+							<div class="form-group">
+						        <label for="fecha">Fecha:</label>
+						        <input type="date" id="fecha" name="fecha" class="form-control" th:field="*{fecha_cita}" required>
+						    </div>
 							
-							<div class="form-group row py-2">
-							    <label for="horario" class="col-sm-2 col-form-label">Horario disponible:</label>
-							    <select id="horario" class="form-control" disabled th:field="*{fecha_cita}">
-							        <option value="">Seleccione un médico</option>
-							    </select>
-							</div>
+							<div class="form-group">
+						        <label for="medico">Médico:</label>
+						        <select id="medico" name="medicoId" class="form-control" th:field="*{medico.id}" required>
+						            <option value="">Seleccione un médico</option>
+						            <option th:each="medico : ${medicos}" th:value="${medico.id}" th:text="${medico.nombre}"></option>
+						        </select>
+						    </div>
+							
+							<div class="form-group">
+						        <label for="horario">Horario:</label>
+						        <select id="horario" name="horarioId" class="form-control" th:field="*{hora_cita}" required disabled>
+						            <option value="">Seleccione un horario</option>
+						        </select>
+						    </div>
 							
 			
 

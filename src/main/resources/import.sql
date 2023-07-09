@@ -20,16 +20,18 @@ INSERT INTO medicos (id, nombre, apellido, estado) VALUES (1, 'Martín', 'Iza', 
 INSERT INTO medicos (id, nombre, apellido, estado) VALUES (2, 'Jose', 'Gomez', 'activo');
 INSERT INTO medicos (id, nombre, apellido, estado) VALUES (3, 'Pedro', 'Narva', 'activo');
 
-INSERT INTO horarios (id, fecha, hora, medico_id) VALUES(1,'2023-07-13', '8:30',1);
-INSERT INTO horarios (id, fecha, hora, medico_id) VALUES(2,'2023-07-13', '9:30',2);
-INSERT INTO horarios (id, fecha, hora, medico_id) VALUES(3,'2023-07-13', '2:30',3);
-INSERT INTO horarios (id, fecha, hora, medico_id) VALUES(4,'2023-07-13', '3:30',1);
+INSERT INTO horarios (id, hora) VALUES(1,'8:20');
+INSERT INTO horarios (id, hora) VALUES(2,'8:40');
+INSERT INTO horarios (id, hora) VALUES(3,'9:00');
+INSERT INTO horarios (id, hora) VALUES(4,'9:20');
+INSERT INTO horarios (id, hora) VALUES(5,'9:40');
 
 
 
-INSERT INTO citas (id, paciente_id, medico_id, descripcion, fecha_cita) VALUES (1, 1, 2, 'Cita general','2023-07-18 8:30');
-INSERT INTO citas (id, paciente_id, medico_id, descripcion, fecha_cita) VALUES (2, 2, 2, 'Cita general', '2023-07-10 9:50');
-INSERT INTO citas (id, paciente_id, medico_id, descripcion, fecha_cita) VALUES (3, 3, 1, 'Cita general', '2023-07-09 10:20');
+
+INSERT INTO citas (id, paciente_id, medico_id, descripcion, fecha_cita,hora_cita) VALUES (1, 1, 2, 'Cita general','2023-07-18', '8:30');
+INSERT INTO citas (id, paciente_id, medico_id, descripcion, fecha_cita,hora_cita) VALUES (2, 2, 2, 'Cita general', '2023-07-10', '9:50');
+INSERT INTO citas (id, paciente_id, medico_id, descripcion, fecha_cita,hora_cita) VALUES (3, 3, 1, 'Cita general', '2023-07-09', '10:20');
 
 
 INSERT INTO usuarios (correo,contrasena,estado) VALUES('andres@email.com','$2a$10$O9wxmH/AeyZZzIS09Wp8YOEMvFnbRVJ8B4dmAMVSGloR62lj.yqXG',1);

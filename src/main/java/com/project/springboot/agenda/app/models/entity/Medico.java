@@ -39,14 +39,12 @@ public class Medico implements Serializable{
 	
 	//Un medico puede tener muchas citas, relacion unidireccional
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "medico_id")
-	private List<Horario> horarios;
+
 	
 	//Constructor
 	public Medico() {
 		citas=new ArrayList<>();
-		horarios=new ArrayList<>();
+		
 	}
 
 	public Long getId() {
@@ -89,13 +87,7 @@ public class Medico implements Serializable{
 		this.citas = citas;
 	}
 
-	public List<Horario> getHorarios() {
-		return horarios;
-	}
 
-	public void setHorarios(List<Horario> horarios) {
-		this.horarios = horarios;
-	}
 	
 	//------Metodos
 

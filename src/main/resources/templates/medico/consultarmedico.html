@@ -41,6 +41,7 @@
 									<th>Id</th>
 									<th>descripcion</th>
 									<th>Fecha atención</th>
+									<th>Hora atención</th>
 									<th>Paciente</th>
 									<th>Detalles</th>
 									<th>Cancelar</th>
@@ -51,7 +52,8 @@
 									<td th:text="${cita.id}"></td>
 									<td th:text="${cita.descripcion}"></td>
 									<td th:text="${cita.fecha_cita}"></td>
-									<td th:text="${cita.getPaciente().getNombre()}"></td>
+									<td th:text="${cita.hora_cita}"></td>
+									<td th:text="${cita.getPaciente().getNombre()}+' '+${cita.getPaciente().getApellido()}"></td>
 									<td> <a class="btn btn-outline-secondary" th:href="@{'/cita/consultar/'+${cita.id}}" >
 											<span class="material-symbols-outlined">description</span>
 										</a>

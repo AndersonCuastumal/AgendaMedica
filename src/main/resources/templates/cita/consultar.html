@@ -19,7 +19,7 @@
 				<ul class="list-group my-2">
 					<li class="list-group-item list-group-item-primary"
 						th:text="'Datos del cliente'"></li>
-					<li class="list-group-item" th:text="${cita.paciente.nombre}"></li>
+					<li class="list-group-item" th:text="${cita.paciente.nombre}+' '+${cita.paciente.apellido}"></li>
 					<li class="list-group-item" th:text="${cita.paciente.telefono}"></li>
 					<li class="list-group-item" th:text="${cita.paciente.direccion}"></li>
 					<li class="list-group-item" th:text="${cita.paciente.correo}"></li>
@@ -36,6 +36,8 @@
 						th:text="'Descripción: ' + ${cita.descripcion}"></li>
 					<li class="list-group-item"
 						th:text="'Fecha cita medica: ' + ${cita.fecha_cita}"></li>
+					<li class="list-group-item"
+						th:text="'Hora cita medica: ' + ${cita.hora_cita}"></li>
 					<li class="list-group-item"
 						th:text="'Medico acargo: ' + ${cita.medico.nombre}+' '+${cita.medico.apellido}"></li>
 					<li class="list-group-item"

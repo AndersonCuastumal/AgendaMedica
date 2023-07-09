@@ -1,12 +1,13 @@
 package com.project.springboot.agenda.app.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -70,9 +71,11 @@ public class CitaController {
 	
 	
 
-	@GetMapping(value="/horarios/{medicoId}",produces={"application/json"})
-	public @ResponseBody List<Horario> getHorariosByMedicoId(@PathVariable Long medicoId) {
-	    List<Horario> horarios = crudService.getHorariosByMedicoId(medicoId);
+	@GetMapping(value="/horarios/{medicoId}/{fecha}",produces={"application/json"})
+	public @ResponseBody List<Horario> getHorariosDisponibles(@PathVariable Long medicoId,
+			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fecha
+			) {
+	    List<Horario> horarios = crudService.getHorariosByMedicoId(medicoId,fecha);
 
 		return horarios;
 	}

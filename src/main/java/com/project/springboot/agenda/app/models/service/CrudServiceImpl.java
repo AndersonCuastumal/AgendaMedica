@@ -1,5 +1,8 @@
 package com.project.springboot.agenda.app.models.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -113,13 +116,44 @@ public class CrudServiceImpl implements ICrudService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Horario> getHorariosByMedicoId(Long medicoId) {
-		Medico medico = medicoDao.findById(medicoId).orElse(null);
-		if (medico == null) {
-			return Collections.emptyList();
-		}
-		return medico.getHorarios();
+	public List<Horario> getHorariosByMedicoId(Long medicoId, LocalDate fecha) {
+	    Medico medico = medicoDao.findById(medicoId).orElse(null);
+	    if (medico == null) {
+	        return Collections.emptyList();
+	    }
+	    
+	    List<Cita> citas = citaDao.findByMedicoAndFechaCita(medico, fecha);
+	    if (!citas.isEmpty()) {
+	        // El médico ya tiene una cita programada para la fecha especificada
+	        return Collections.emptyList();
+	    } else {
+	        // Obtener todos los horarios registrados
+	        List<Horario> horarios = (List<Horario>) horarioDao.findAll();
+	        List<Horario> horariosDisponibles = new ArrayList<>();
+	        
+	        // Validar cada hora de horario
+	        for (Horario horario : horarios) {
+	            if (validarHoraHorario(horario, fecha)) {
+	                horariosDisponibles.add(horario);
+	            }
+	        }
+	        
+	        return horariosDisponibles;
+	    }
 	}
+
+	private boolean validarHoraHorario(Horario horario, LocalDate fecha) {
+	    // Obtener la hora del horario
+	    LocalTime horaHorario = horario.getHora();
+
+	    
+	    // Verificar si existe una cita programada para la fecha y hora del horario
+	    List<Cita> citas = citaDao.findByFechaCitaAndHoraCita(fecha, horaHorario);
+	    
+	    // Devolver true si no hay citas programadas en esa fecha y hora, de lo contrario, false
+	    return citas.isEmpty();
+	}
+
 
 	@Override
 	@Transactional(readOnly = true)
@@ -164,5 +198,7 @@ public class CrudServiceImpl implements ICrudService {
 		
 		return pacienteDao.save(paciente);
 	}
+
+	
 
 }
