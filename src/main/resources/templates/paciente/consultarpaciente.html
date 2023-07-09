@@ -58,31 +58,29 @@
 						  </div>
 						</div>
 
-						<div class="alert alert-info my-4" th:if="${#lists.isEmpty(paciente.horarios)}" th:text="'No hay citas asignadas para el medico '+ ${paciente.nombre} +' '+ ${paciente.apellido}"></div>
-						<table class="table my-4" th:if="${not #lists.isEmpty(paciente.horarios)}">
+						<div class="alert alert-info my-4" th:if="${#lists.isEmpty(paciente.citas)}" th:text="'No hay citas asignadas para el medico '+ ${paciente.nombre} +' '+ ${paciente.apellido}"></div>
+						<table class="table my-4" th:if="${not #lists.isEmpty(paciente.citas)}">
 							<thead class="thead-dark">
 								<tr>
 									<th>Id</th>
 									<th>descripcion</th>
-									<th>Día atención</th>
-									<th>Hora atención</th>
+									<th>Fecha atención</th>
 									<th>Medico</th>
 									<th>Detalles</th>
 									<th>Cancelar</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="horario:${paciente.horarios}">
-									<td th:text="${horario.id}"></td>
-									<td th:text="${horario.descripcion}"></td>
-									<td th:text="${horario.dia_atencion}"></td>
-									<td th:text="${horario.hora_atencion}"></td>
-									<td th:text="${horario.getMedico().getNombre()}"></td>
-									<td> <a class="btn btn-outline-secondary" th:href="@{'/horario/consultar/'+${horario.id}}" >
+								<tr th:each="cita:${paciente.citas}">
+									<td th:text="${cita.id}"></td>
+									<td th:text="${cita.descripcion}"></td>
+									<td th:text="${cita.fecha_cita}"></td>
+									<td th:text="${cita.getMedico().getNombre()}"></td>
+									<td> <a class="btn btn-outline-secondary" th:href="@{'/cita/consultar/'+${cita.id}}" >
 											<span class="material-symbols-outlined">description</span>
 										</a>
 									</td>
-									<td> <a class="btn btn-outline-secondary" th:href="@{'/horario/cancelar/'+${horario.id}}" onclick="return confirm('¿Esta seguro que desea cancelar su cita?')">
+									<td> <a class="btn btn-outline-secondary" th:href="@{'/cita/cancelar/'+${cita.id}}" onclick="return confirm('¿Esta seguro que desea cancelar su cita?')">
 											<span class="material-symbols-outlined">delete</span>
 										</a>
 									</td>

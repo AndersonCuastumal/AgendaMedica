@@ -10,6 +10,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -37,13 +38,15 @@ public class Medico implements Serializable{
 	private List<Cita> citas;
 	
 	//Un medico puede tener muchas citas
-	@OneToMany(mappedBy="medico",fetch=FetchType.LAZY,cascade=CascadeType.ALL,orphanRemoval=true)
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "medico_id")
 	private List<Horario> horarios;
 	
 	//Constructor
 	public Medico() {
-		citas=new ArrayList<Cita>();
-		horarios=new ArrayList<Horario>();
+		citas=new ArrayList<>();
+		horarios=new ArrayList<>();
 	}
 
 	public Long getId() {
@@ -96,9 +99,7 @@ public class Medico implements Serializable{
 	
 	//------Metodos
 
-	
-	
-	
+		
 	
 	
 	

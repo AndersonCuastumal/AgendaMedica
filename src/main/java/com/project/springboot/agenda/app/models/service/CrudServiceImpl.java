@@ -1,5 +1,6 @@
 package com.project.springboot.agenda.app.models.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.springboot.agenda.app.models.dao.ICitaDao;
 import com.project.springboot.agenda.app.models.dao.IHorarioDao;
 import com.project.springboot.agenda.app.models.dao.IMedicoDao;
 import com.project.springboot.agenda.app.models.dao.IPacienteDao;
+import com.project.springboot.agenda.app.models.entity.Cita;
 import com.project.springboot.agenda.app.models.entity.Horario;
 import com.project.springboot.agenda.app.models.entity.Medico;
 import com.project.springboot.agenda.app.models.entity.Paciente;
@@ -29,6 +32,8 @@ public class CrudServiceImpl implements ICrudService{
 	@Autowired
 	private IHorarioDao horarioDao;
 
+	@Autowired
+	private ICitaDao citaDao;
 	
 	@Override
 	@Transactional(readOnly=true)
@@ -106,11 +111,31 @@ public class CrudServiceImpl implements ICrudService{
 		return pacienteDao.findAll(pageable);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+    public List<Horario> getHorariosByMedicoId(Long medicoId) {
+        Medico medico = medicoDao.findById(medicoId).orElse(null);
+        if (medico == null) {
+            return Collections.emptyList();
+        }
+        return medico.getHorarios();
+    }
 
 	@Override
-	public List<Horario> getHorariosDisponibles(Medico medico) {
-		List<Horario> horariosMedico = medico.getHorarios();
-		return horariosMedico;
+	@Transactional(readOnly=true)
+	public List<Horario> findAllHorario() {
+		// TODO Auto-generated method stub
+		return (List<Horario>) horarioDao.findAll();
 	}
+
+
+	@Override
+	public void saveCita(Cita cita) {
+		// TODO Auto-generated method stub
+		citaDao.save(cita);
+	}
+
+
+
 
 }

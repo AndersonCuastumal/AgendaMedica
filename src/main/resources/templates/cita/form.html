@@ -26,36 +26,30 @@
 							<div class="form-group row py-2">
 								<lable class="col-sm-2 col-form-label">Paciente ID:</lable>
 								<div class="col-sm-6">
-									<input id="paciente" type="text" th:value="${cita.paciente.id}" class="form-control" disabled='disabled' />
+									<input id="paciente" type="text" th:value="${cita.paciente.id}" class="form-control"  th:field="*{paciente.id}" disabled='disabled' />
 									
 								</div>
 			
 							</div>
 							
 							<div class="form-group row py-2">
-								<lable class="col-sm-2 col-form-label">Medico ID:</lable>
+							    <label class="col-sm-2 col-form-label">Médico ID:</label>
 							    <div class="col-sm-6">
-							        <select id="medico" th:field="*{medico.id}" class="form-control">
-							            <option th:each="medico : ${medicos}" th:value="${medico.id}" th:text="${medico.nombre}"></option>
+							        <select id="medico" class="form-control" th:field="*{medico.id}">
+							            <option th:each="medico : ${medicos}" th:value="${medico.id}"  th:text="${medico.nombre}"></option>
 							        </select>
 							    </div>
-			
 							</div>
 							
 							<div class="form-group row py-2">
-								<lable for="dia" class="col-sm-2 col-form-label">Día Cita:</lable>
-								<input class="form-control" id="dia" type="date" th:field="*{dia_atencion}" th:errorclass="'form-control is-invalid'"/>
-								
-			
+							    <label for="horario" class="col-sm-2 col-form-label">Horario disponible:</label>
+							    <select id="horario" class="form-control" disabled th:field="*{fecha_cita}">
+							        <option value="">Seleccione un médico</option>
+							    </select>
 							</div>
 							
 			
-							<div class="form-group row py-2">
-								<lable for="hora" class="col-sm-2 col-form-label">Hora Cita:</lable>
-								<input class="form-control" id="hora" type="time" th:field="*{hora_atencion}" th:errorclass="'form-control is-invalid'"/>
-								
-			
-							</div>
+
 							
 							<div class="form-group row py-2">
 								<lable for="descripcion" class="col-sm-2 col-form-label">Descripción:</lable>
@@ -84,7 +78,10 @@
 
 	</div>
 	
-	<footer th:replace="~{layout/layout :: footer}"></footer>
+	<footer th:replace="~{layout/layout :: footer}">
+	
+	</footer>
+	<script th:replace="~{cita/js/autocomplete-horarios :: javascript}"></script>
 
 
 </body>

@@ -30,13 +30,7 @@ public class Horario implements Serializable {
 	@Temporal(TemporalType.TIME)
 	private Date hora;
 
-	@ManyToOne(fetch=FetchType.LAZY) //Indica relacion de muchas citas un medico
-	@JoinColumn(name = "medico_id")
-	private Medico medico;
 
-	/**
-	 * 
-	 */
 		
 	
 	private static final long serialVersionUID = 1L;
@@ -65,12 +59,5 @@ public class Horario implements Serializable {
 		this.hora = hora;
 	}
 
-	public Medico getMedico() {
-		return medico;
-	}
-
-	public void setMedico(Medico medico) {
-		this.medico = medico;
-	}
 
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+
+	<script type="text/javascript" th:fragment="javascript">
+
+		$(document).ready(function() {
+		    $('#medico').change(function() {
+		        var medicoId = $(this).val();
+		        
+		        if (medicoId) {
+		            $.ajax({
+		                url: "/cita/horarios/" + medicoId,
+		                dataType: "json",
+		                success: function(data) {
+		                    $('#horario').empty(); // Vaciar el select antes de agregar nuevas opciones
+		                    if (data.length > 0) {
+		                        $.each(data, function(index, horario) {
+		                            $('#horario').append('<option id="' + horario.id + '" value="' + horario.fecha + ' ' + horario.hora + '">' + horario.fecha + ' ' + horario.hora + '</option>');
+		                        });
+		                    } else {
+		                        $('#horario').append('<option value="">No hay horarios disponibles</option>');
+		                    }
+		                    $('#horario').removeAttr('disabled'); // Habilitar el select
+		                },
+		                error: function() {
+		                    console.error('Error al obtener los horarios del médico');
+		                }
+		            });
+		        } else {
+		            $('#horario').attr('disabled', 'disabled');
+		            $('#horario').empty();
+		            $('#horario').append('<option value="">Seleccione un médico</option>');
+		        }
+		    });
+		});
+
+		
+	
+	</script>
+</body>
+</html>

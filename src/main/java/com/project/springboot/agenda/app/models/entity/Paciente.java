@@ -89,6 +89,14 @@ public class Paciente implements Serializable {
 		ultimo_inicio_sesion=new Date();
 	}
 	
+	public List<Cita> getCitas() {
+		return citas;
+	}
+
+	public void setCitas(List<Cita> citas) {
+		this.citas = citas;
+	}
+
 	public Long getId() {
 		return id;
 	}
