@@ -14,8 +14,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -71,9 +72,14 @@ public class Paciente implements Serializable {
 	private Date ultimo_inicio_sesion;
 	private String estado;
 	
-	//Un medico puede tener muchas citas
+	//Un medico puede tener muchas
 	@OneToMany(mappedBy="paciente",fetch=FetchType.LAZY,cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Cita> citas;
+	
+	// Relacion uno a uno relacion bidireccional
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
 	private static final long serialVersionUID = 1L;
 	
@@ -192,6 +198,16 @@ public class Paciente implements Serializable {
 	public void addHorario(Cita cita) {
 		citas.add(cita);
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 	
 
 }

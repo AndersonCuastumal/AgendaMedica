@@ -13,53 +13,53 @@ import com.project.springboot.agenda.app.models.dao.ICitaDao;
 import com.project.springboot.agenda.app.models.dao.IHorarioDao;
 import com.project.springboot.agenda.app.models.dao.IMedicoDao;
 import com.project.springboot.agenda.app.models.dao.IPacienteDao;
+import com.project.springboot.agenda.app.models.dao.IUsuarioDao;
 import com.project.springboot.agenda.app.models.entity.Cita;
 import com.project.springboot.agenda.app.models.entity.Horario;
 import com.project.springboot.agenda.app.models.entity.Medico;
 import com.project.springboot.agenda.app.models.entity.Paciente;
-
+import com.project.springboot.agenda.app.models.entity.Usuario;
 
 @Service
-public class CrudServiceImpl implements ICrudService{
-	
+public class CrudServiceImpl implements ICrudService {
+
 	@Autowired
 	private IMedicoDao medicoDao;
-	
+
 	@Autowired
 	private IPacienteDao pacienteDao;
-	
-	
+
 	@Autowired
 	private IHorarioDao horarioDao;
 
 	@Autowired
 	private ICitaDao citaDao;
 	
+	@Autowired
+	private IUsuarioDao usuarioDao;
+
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<Medico> findAll() {
 		// TODO Auto-generated method stub
 		return (List<Medico>) medicoDao.findAll();
 	}
 
-	
-	//---- Metodos Medico
+	// ---- Metodos Medico
 	@Override
 	@Transactional
 	public void save(Medico medico) {
 		// TODO Auto-generated method stub
 		medicoDao.save(medico);
 	}
-	
-	
+
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public Medico findOne(Long id) {
 		// TODO Auto-generated method stub
 		return medicoDao.findById(id).orElse(null);
 	}
 
-	
 	@Override
 	@Transactional
 	public void delete(Long id) {
@@ -67,13 +67,13 @@ public class CrudServiceImpl implements ICrudService{
 		medicoDao.deleteById(id);
 	}
 
-
 	@Override
 	public Page<Medico> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return medicoDao.findAll(pageable);
 	}
 
+	
 	
 	// --- Metodos Paciente
 
@@ -83,20 +83,18 @@ public class CrudServiceImpl implements ICrudService{
 		return (List<Paciente>) pacienteDao.findAll();
 	}
 
-
 	@Override
 	public void savePaciente(Paciente paciente) {
 		// TODO Auto-generated method stub
 		pacienteDao.save(paciente);
 	}
 
-
 	@Override
+	@Transactional(readOnly = true)
 	public Paciente findPacienteById(Long id) {
 		// TODO Auto-generated method stub
 		return pacienteDao.findById(id).orElse(null);
 	}
-
 
 	@Override
 	public void deletePaciente(Long id) {
@@ -104,38 +102,67 @@ public class CrudServiceImpl implements ICrudService{
 		pacienteDao.deleteById(id);
 	}
 
-
 	@Override
 	public Page<Paciente> findAllPaciente(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return pacienteDao.findAll(pageable);
 	}
 
+	
+	// --- Metodos horario
+	
 	@Override
 	@Transactional(readOnly = true)
-    public List<Horario> getHorariosByMedicoId(Long medicoId) {
-        Medico medico = medicoDao.findById(medicoId).orElse(null);
-        if (medico == null) {
-            return Collections.emptyList();
-        }
-        return medico.getHorarios();
-    }
+	public List<Horario> getHorariosByMedicoId(Long medicoId) {
+		Medico medico = medicoDao.findById(medicoId).orElse(null);
+		if (medico == null) {
+			return Collections.emptyList();
+		}
+		return medico.getHorarios();
+	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<Horario> findAllHorario() {
 		// TODO Auto-generated method stub
 		return (List<Horario>) horarioDao.findAll();
 	}
 
-
+	
+	// --- Metodos Citas
+	
 	@Override
 	public void saveCita(Cita cita) {
 		// TODO Auto-generated method stub
 		citaDao.save(cita);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public Cita findCitaById(Long id) {
+		// TODO Auto-generated method stub
+		return citaDao.findById(id).orElse(null);
+	}
 
+	@Override
+	public void deleteCita(Long id) {
+		// TODO Auto-generated method stub
+		citaDao.deleteById(id);
+	}
 
+	@Override
+	public Paciente registrarPaciente(Paciente paciente) {
+		Usuario usuario=new Usuario();
+		usuario.setCorreo(paciente.getCorreo());
+		usuario.setContrasena(paciente.getContrasena());
+		usuario.setEstado(true);
+		
+		paciente.setUsuario(usuario);
+		usuario.setPaciente(paciente);
+		
+		usuarioDao.save(usuario);
+		
+		return pacienteDao.save(paciente);
+	}
 
 }

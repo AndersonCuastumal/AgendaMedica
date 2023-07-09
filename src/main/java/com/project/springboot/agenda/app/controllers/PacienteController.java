@@ -14,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.springboot.agenda.app.models.entity.Paciente;
+import com.project.springboot.agenda.app.models.entity.Usuario;
 import com.project.springboot.agenda.app.models.service.ICrudService;
 
 import com.project.springboot.agenda.app.util.paginator.PageRender;
@@ -41,8 +43,11 @@ import jakarta.validation.Valid;
 public class PacienteController {
 	
 	private final Logger log=LoggerFactory.getLogger(getClass());
+	
 	@Autowired
-
+	private BCryptPasswordEncoder passwordEncoder;	
+	
+	@Autowired
 	private ICrudService pacienteService;
 	
 	@RequestMapping(value="/listapacientes", method=RequestMethod.GET)
@@ -91,6 +96,15 @@ public class PacienteController {
 			return "paciente/formpaciente";
 		}
 		
+		Usuario usuario=new Usuario();
+		usuario.setCorreo(paciente.getCorreo());
+		
+		String contrasenaCodificada = passwordEncoder.encode(paciente.getContrasena());
+	    usuario.setContrasena(contrasenaCodificada);
+	    usuario.setEstado(true);
+	    paciente.setUsuario(usuario);
+	    
+	    
 		String mensajeFlash = (paciente.getId() != null) ? "Paciente actualizado con Exito!" : "Paciente creado con éxito";
 		pacienteService.savePaciente(paciente);
 		status.setComplete();

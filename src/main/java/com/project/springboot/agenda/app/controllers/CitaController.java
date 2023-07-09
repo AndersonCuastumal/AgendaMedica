@@ -12,10 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -95,10 +95,44 @@ public class CitaController {
 		crudService.saveCita(cita);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
-		return "redirect:/paciente/listapacientes";
+		return "redirect:/paciente/consultarpaciente/"+cita.getPaciente().getId();
 	}
 
 	
+	// Metodo ver detalle de la factura
+	
+	
+	
+	
+	
+	
+		@GetMapping("/consultar/{id}")
+		public String ver(@PathVariable(value="id") Long id,
+				Model model,
+				RedirectAttributes flash) {
+			Cita cita=crudService.findCitaById(id);
+			
+			if(cita==null) {
+				flash.addFlashAttribute("error", "La cita no existe en la base de datos!");
+				return "redirect:/login";
+			}
+			model.addAttribute("cita", cita);
+			model.addAttribute("titulo", "Cita: ".concat(cita.getDescripcion()));
+			return "cita/consultar";
+		}
+		
+		//
+		@GetMapping("/cancelar/{id}")
+		public String eliminar(@PathVariable(value="id") Long id, RedirectAttributes flash) {
+			Cita cita=crudService.findCitaById(id);
+			if(cita!=null) {
+				crudService.deleteCita(id);
+				flash.addFlashAttribute("success", "Cita cancelada con éxito!");
+				return "redirect:/paciente/consultarpaciente/"+cita.getPaciente().getId();
+			}
+			flash.addFlashAttribute("error", "La cita no existe en la BD, no se pudo cancelar!");
+			return "redirect:/login";
+		}
 
 	
 	

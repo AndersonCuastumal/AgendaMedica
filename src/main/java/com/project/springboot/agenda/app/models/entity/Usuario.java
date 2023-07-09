@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,7 +27,7 @@ public class Usuario implements Serializable {
 	private Long id;
 
 	@Column(unique = true)
-	private String username;
+	private String correo;
 
 	@Column(length = 60)
 	private String contrasena;
@@ -36,6 +37,9 @@ public class Usuario implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private List<Role> roles;
+	
+	@OneToOne(mappedBy = "usuario")
+    private Paciente paciente;
 
 	private static final long serialVersionUID = 1L;
 
@@ -47,12 +51,13 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+
+	public String getCorreo() {
+		return correo;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
 	public String getContrasena() {
@@ -79,4 +84,14 @@ public class Usuario implements Serializable {
 		this.roles = roles;
 	}
 
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+
+	
+	
 }

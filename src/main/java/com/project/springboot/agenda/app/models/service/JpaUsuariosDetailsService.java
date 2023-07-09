@@ -31,15 +31,17 @@ public class JpaUsuariosDetailsService implements UserDetailsService{
 	private final Logger log=LoggerFactory.getLogger(getClass());
 	
 	
+	
+	
 	@Override
 	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuario usuario =usuarioDao.findByUsername(username);
+	public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
+		Usuario usuario =usuarioDao.findByCorreo(correo);
 		
 		if(usuario==null) {
-			log.error("Error Login: no existe el usuario: ".concat(username));
+			log.error("Error Login: no existe el usuario: ".concat(correo));
 		}else {
-			log.info("Exito: Bienvenido: ".concat(username));
+			log.info("Exito: Bienvenido: ".concat(correo));
 		}
 		
 		List<GrantedAuthority> authorities=new ArrayList<GrantedAuthority>();
@@ -50,12 +52,15 @@ public class JpaUsuariosDetailsService implements UserDetailsService{
 		}
 		
 		if(authorities.isEmpty()) {
-			log.error("Error Login: no existe el usuario: ".concat(username).concat(" No tiene roles asignados!!"));
+			log.error("Error Login: no existe el usuario: ".concat(correo).concat(" No tiene roles asignados!!"));
 		}
 		
 		
 		
-		return new User(usuario.getUsername(), usuario.getContrasena(), usuario.getEstado(), true, true, true, authorities);
+		return new User(usuario.getCorreo(), usuario.getContrasena(), usuario.getEstado(), true, true, true, authorities);
 	}
+	
+	
+	
 
 }

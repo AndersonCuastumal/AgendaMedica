@@ -37,7 +37,7 @@ public class Medico implements Serializable{
 	@OneToMany(mappedBy="medico",fetch=FetchType.LAZY,cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Cita> citas;
 	
-	//Un medico puede tener muchas citas
+	//Un medico puede tener muchas citas, relacion unidireccional
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "medico_id")

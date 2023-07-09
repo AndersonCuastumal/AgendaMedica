@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::head">
+
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container py-4">
+		<div class="card bg.light">
+			<div class="card-header text-center" >
+				    <h3 class="card-title" th:text="${titulo}"></h3>
+			</div>
+			<div class="card-body">
+				<h4 class="card-title"></h4>
+				<a th:href="@{'/paciente/consultarpaciente/'+${cita.paciente.id}}"
+					class="btn btn-outline-secondary">
+					<span class="material-symbols-outlined">arrow_back</span>	
+				</a>
+				<ul class="list-group my-2">
+					<li class="list-group-item list-group-item-primary"
+						th:text="'Datos del cliente'"></li>
+					<li class="list-group-item" th:text="${cita.paciente.nombre}"></li>
+					<li class="list-group-item" th:text="${cita.paciente.telefono}"></li>
+					<li class="list-group-item" th:text="${cita.paciente.direccion}"></li>
+					<li class="list-group-item" th:text="${cita.paciente.correo}"></li>
+					<li class="list-group-item" th:text="${cita.paciente.estado}"></li>
+				</ul>
+
+				<ul class="list-group my-2">
+					<li class="list-group-item list-group-item-success"
+						th:text="'Datos de la cita medica'"></li>
+					<li class="list-group-item" th:text="'Folio: ' + ${cita.id}"></li>
+					
+					
+					<li class="list-group-item"
+						th:text="'Descripción: ' + ${cita.descripcion}"></li>
+					<li class="list-group-item"
+						th:text="'Fecha cita medica: ' + ${cita.fecha_cita}"></li>
+					<li class="list-group-item"
+						th:text="'Medico acargo: ' + ${cita.medico.nombre}+' '+${cita.medico.apellido}"></li>
+					<li class="list-group-item"
+						th:text="'Estado medico: ' + ${cita.medico.estado}"></li>
+					<li class="list-group-item"
+						th:text="'Fecha de expedición: ' + ${cita.fecha_solicitud}"></li>
+					
+				</ul>
+				
+
+				
+
+				
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

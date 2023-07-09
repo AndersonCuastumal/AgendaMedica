@@ -24,11 +24,17 @@ public interface ICrudService {
 	public Paciente findPacienteById(Long id);
 	public void deletePaciente(Long id);
 	public Page<Paciente> findAllPaciente(Pageable pageable);
+	public Paciente registrarPaciente(Paciente paciente);
+	
 	
 	public void saveCita(Cita cita);
 	
 	public List<Horario> findAllHorario();
 	public List<Horario> getHorariosByMedicoId(Long medicoId);
+	public Cita findCitaById(Long id);
+	public void deleteCita(Long id);
+	
+	
 	
 	
 }
