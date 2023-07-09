@@ -21,7 +21,7 @@
 				<div class="row align-items-center">
 				  <div class="col-auto">
 				    <h4 class="card-title">
-				      <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-secondary" th:href="@{/paciente/formpaciente}">
+				      <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-secondary d-flex align-items-center" th:href="@{/paciente/formpaciente}">
 				        <label>Agregar Paciente</label> &nbsp; <span class="material-symbols-outlined">person_add</span>
 				      </a>
 				    </h4>
@@ -36,9 +36,7 @@
 						<th>Apellido</th>
 						<th>Correo</th>
 						<th>Telefono</th>
-						<th>Direccion</th>
-						<th>Fecha de creacion</th>
-						<th>Ultima sesion</th>
+						
 						<th>Estado</th>
 						<th>Agendar Cita</th>
 						<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
@@ -52,9 +50,7 @@
 							<td th:text="${paciente.apellido}"></td>
 							<td th:text="${paciente.correo}"></td>
 							<td th:text="${paciente.telefono}"></td>
-							<td th:text="${paciente.direccion}"></td>
-							<td th:text="${paciente.fecha_creacion}"></td>
-							<td th:text="${paciente.ultimo_inicio_sesion}"></td>
+							
 							<td th:text="${paciente.estado ? 'Activo' : 'Inactivo'}"></td>
 							<td><a  class="btn btn-outline-secondary"
 								th:href="@{/cita/form/}+${paciente.id}">

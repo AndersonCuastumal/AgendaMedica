@@ -17,7 +17,7 @@
 				<hr class="border boder-success">
 				<div class="card-body">
 					<h4><a class="btn btn-outline-secondary"
-								th:href="@{/consultar/}+${cita.paciente.id}" th:text="'Ver Detalle'"></a></h4>
+								th:href="@{/cita/consultar/}+${cita.paciente.id}" th:text="'Ver Detalle'"></a></h4>
 					<!--enctype: este tipo de configuracion en el formulario permite subir archivos, fotos, etc ..  -->
 					<form th:action="@{/cita/form}" th:object="${cita}" method="post">
 										
@@ -46,7 +46,7 @@
 						    </div>
 							
 							<div class="form-group">
-						        <label for="horario">Horario:</label>
+						        <label for="horario">Horario Disponible:</label>
 						        <select id="horario" name="horarioId" class="form-control" th:field="*{hora_cita}" required disabled>
 						            <option value="">Seleccione un horario</option>
 						        </select>

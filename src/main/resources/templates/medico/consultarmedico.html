@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/layout::head">
 
 </head>
@@ -44,6 +44,7 @@
 									<th>Hora atención</th>
 									<th>Paciente</th>
 									<th>Detalles</th>
+									<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
 									<th>Cancelar</th>
 								</tr>
 							</thead>
@@ -58,6 +59,12 @@
 											<span class="material-symbols-outlined">description</span>
 										</a>
 									</td>
+									<td sec:authorize="hasRole('ROLE_ADMIN')"><a  class="btn btn-outline-secondary"
+										th:href="@{/cita/formedit/}+${cita.id}">
+											<span class="material-symbols-outlined">edit</span>
+										</a>
+									</td>
+									
 									<td> <a class="btn btn-outline-secondary" th:href="@{'/cita/cancelar/'+${cita.id}}" onclick="return confirm('¿Esta seguro que desea cancelar su cita?')">
 											<span class="material-symbols-outlined">delete</span>
 										</a>

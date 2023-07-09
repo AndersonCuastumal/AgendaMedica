@@ -89,18 +89,53 @@ public class CitaController {
 		if(result.hasErrors()) {
 			model.addAttribute("titulo", "Agendar Cita Medica");
 			log.error("paciente id: ".concat(" "+cita.getPaciente().getId()));
-			log.error("medico id: ".concat(" "+cita.getMedico().getId()));
-			log.error("fecha: ".concat(" "+cita.getFecha_cita()));
+
 			return "redirect:/cita/form/"+cita.getPaciente().getId();
 		}
 		
-		String mensajeFlash = (cita.getId() != null) ? "Paciente actualizado con Exito!" : "Paciente creado con éxito";
+		String mensajeFlash = (cita.getId() != null) ? "cita actualizada con Exito!" : "Cita creada con éxito";
 		crudService.saveCita(cita);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
 		return "redirect:/paciente/consultarpaciente/"+cita.getPaciente().getId();
 	}
 
+	
+	@RequestMapping(value="/formedit/{id}")
+	public String editar(@PathVariable(value="id") Long id, Map<String, Object> model, RedirectAttributes flash) {
+		
+		Cita cita=null;
+		
+	
+		cita = crudService.findCitaById(id);
+
+		if (cita == null || id<=0) {
+			// Agregamos mensaje flash
+			flash.addFlashAttribute("error", "El ID del cita no existe en la BD");
+			return "redirect:/paciente/listapacientes";
+		}
+		
+		
+		
+		Paciente paciente=cita.getPaciente();
+		
+		if(paciente==null) {
+			flash.addFlashAttribute("error", "El medico o paciente no existe en la base de datos");
+			return "redirect:/paciente/listapacientes";
+		}
+		
+
+		
+
+		cita.setPaciente(paciente);
+		
+		List<Medico> medicos=crudService.findAll();
+		
+		model.put("cita", cita);
+		model.put("medicos",medicos);
+		model.put("titulo", "Editar Cita");
+		return "cita/form";
+	}
 	
 	// Metodo ver detalle de la factura
 	
@@ -136,6 +171,10 @@ public class CitaController {
 			flash.addFlashAttribute("error", "La cita no existe en la BD, no se pudo cancelar!");
 			return "redirect:/login";
 		}
+		
+		
+		
+
 
 	
 	

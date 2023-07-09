@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/layout::head">
 
 </head>
@@ -58,7 +58,7 @@
 						  </div>
 						</div>
 
-						<div class="alert alert-info my-4" th:if="${#lists.isEmpty(paciente.citas)}" th:text="'No hay citas asignadas para el medico '+ ${paciente.nombre} +' '+ ${paciente.apellido}"></div>
+						<div class="alert alert-info my-4" th:if="${#lists.isEmpty(paciente.citas)}" th:text="'No hay citas asignadas para el paciente '+ ${paciente.nombre} +' '+ ${paciente.apellido}"></div>
 						<table class="table my-4" th:if="${not #lists.isEmpty(paciente.citas)}">
 							<thead class="thead-dark">
 								<tr>
@@ -68,6 +68,7 @@
 									<th>Hora atención</th>
 									<th>Medico</th>
 									<th>Detalles</th>
+									<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
 									<th>Cancelar</th>
 								</tr>
 							</thead>
@@ -80,6 +81,11 @@
 									<td th:text="${cita.getMedico().getNombre()}+' '+${cita.getMedico().getApellido()}"></td>
 									<td> <a class="btn btn-outline-secondary" th:href="@{'/cita/consultar/'+${cita.id}}" >
 											<span class="material-symbols-outlined">description</span>
+										</a>
+									</td>
+									<td sec:authorize="hasRole('ROLE_ADMIN')"><a  class="btn btn-outline-secondary"
+										th:href="@{/cita/formedit/}+${cita.id}">
+											<span class="material-symbols-outlined">edit</span>
 										</a>
 									</td>
 									<td> <a class="btn btn-outline-secondary" th:href="@{'/cita/cancelar/'+${cita.id}}" onclick="return confirm('¿Esta seguro que desea cancelar su cita?')">

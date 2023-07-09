@@ -21,7 +21,6 @@ INSERT INTO horarios (id, hora) VALUES(5,'9:40');
 
 
 
-
 INSERT INTO citas (id, paciente_id, medico_id, descripcion, fecha_cita,hora_cita) VALUES (1, 1, 2, 'Cita general','2023-07-18', '8:30');
 INSERT INTO citas (id, paciente_id, medico_id, descripcion, fecha_cita,hora_cita) VALUES (2, 2, 2, 'Cita general', '2023-07-10', '9:50');
 INSERT INTO citas (id, paciente_id, medico_id, descripcion, fecha_cita,hora_cita) VALUES (3, 3, 1, 'Cita general', '2023-07-09', '10:20');

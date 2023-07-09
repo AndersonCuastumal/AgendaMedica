@@ -92,11 +92,21 @@
 
 							
 							<div class="form-group row py-2">
-								<div class="col-sm-6">
+								<div class="col-sm-1">
 									
-									<input class="btn btn-secondary" type="submit" th:value="'Guardar'" />
+									<input class="btn btn-primary" type="submit" th:value="'Guardar'" />
 									
 								</div>
+								
+								<div class="col-sm-6">
+									
+									<a th:href="@{'/paciente/listapacientes'}"
+										class="btn btn-secondary" th:="'Cancelar'">
+											
+									</a>
+									
+								</div>
+								
 							</div>
 						
 					</form>
