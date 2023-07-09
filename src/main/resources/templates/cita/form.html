@@ -73,9 +73,18 @@
 						
 							
 							<div class="form-group row py-2">
+								<div class="col-sm-1">
+									
+									<input class="btn btn-primary" type="submit" th:value="'Guardar'" />
+									
+								</div>
+								
 								<div class="col-sm-6">
 									
-									<input class="btn btn-secondary" type="submit" th:value="${titulo}" />
+									<a th:href="@{'/paciente/consultarpaciente/'+${cita.paciente.id}}"
+										class="btn btn-secondary" th:text="'Cancelar'">
+											
+									</a>
 									
 								</div>
 							</div>

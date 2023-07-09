@@ -82,8 +82,8 @@
 							    <div class="col-sm-6">
 							        <select class="form-control" id="estado" th:field="*{estado}" required>
 							        	<option value="">Seleccionar un tipo de estado</option>
-							            <option value=true>Activo</option>
-							            <option value=false>Inactivo</option>
+							            <option value="true">Activo</option>
+							            <option value="false">Inactivo</option>
 							        </select>
 							        <small class="form-text text-danger" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></small>
 							    </div>
@@ -101,7 +101,7 @@
 								<div class="col-sm-6">
 									
 									<a th:href="@{'/paciente/listapacientes'}"
-										class="btn btn-secondary" th:="'Cancelar'">
+										class="btn btn-secondary" th:text="'Cancelar'">
 											
 									</a>
 									
