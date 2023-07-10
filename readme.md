@@ -6,77 +6,77 @@ Se desarrollo una aplicación web de una agenda médica utilizando Java, Spring 
 ## Modelo base de datos
 En esta seccion del modelo UML de la base de datos realacional se crearon las siguientes tablas principales:
 
-- Paciente: Nombre, apellido, correo electrónico, password, teléfono, dirección, fecha de creación y fecha de último ingreso (Activo/inactivo)
-- Médico: Nombre, apellido, estado (Activo/inactivo)
-- Citas: Fecha, Hora con lapsos de 20 min (para cada cita).
+    - Paciente: Nombre, apellido, correo electrónico, password, teléfono, dirección, fecha de creación y fecha de último ingreso (Activo/inactivo)
+    - Médico: Nombre, apellido, estado (Activo/inactivo)
+    - Citas: Fecha, Hora con lapsos de 20 min (para cada cita).
 
 Para facilitar el tratamiento de datos se añadieron las dos siguientes tablas:
-- usuario: Permite administrar los roles administrador y paciente
-- horario: Esta permite ingresar los horarios disponibles por cada medico
+    - usuario: Permite administrar los roles administrador y paciente
+    - horario: Esta permite ingresar los horarios disponibles por cada medico
 
 ![Modelo Base de datos UML](/imagenes_DB/Modelo_UML.png)
 
 ## Características generales de interfaz:
 
 ### Inicio de sesión
-    Esta captura de pantalla muestra la página de inicio de sesión de la aplicación. Se requiere ingresar un correo electrónico y una contraseña válidos para acceder a los servicios, los serivicios brindados son diferentes para los roles administrador y paciente. 
-    ![Login](/imagenes_administrador/Login.png)
+Esta captura de pantalla muestra la página de inicio de sesión de la aplicación. Se requiere ingresar un correo electrónico y una contraseña válidos para acceder a los servicios, los serivicios brindados son diferentes para los roles administrador y paciente. 
+![Login](/imagenes_administrador/Login.png)
 
 ### Listado de Pacientes
-    En esta captura de pantalla, se muestra el listado de todos los pacientes registrados en la base de datos. La lista se presenta con paginación para facilitar la navegación.
-    ![Listado pacientes](/imagenes_administrador/Home_Admin.png)
+En esta captura de pantalla, se muestra el listado de todos los pacientes registrados en la base de datos. La lista se presenta con paginación para facilitar la navegación.
+![Listado pacientes](/imagenes_administrador/Home_Admin.png)
 
 
 ### Registrar Nuevo Paciente
-    Aquí se puede ver la interfaz para registrar un nuevo paciente en la aplicación. 
-    ![Registrar nuevo paciente](/imagenes_administrador/crear_paciente.png)
+Aquí se puede ver la interfaz para registrar un nuevo paciente en la aplicación. 
+![Registrar nuevo paciente](/imagenes_administrador/crear_paciente.png)
 
 ### Editar Paciente
-    En esta captura de pantalla se muestra la funcionalidad de edición de un paciente.
-    ![editar paciente](/imagenes_administrador/editar_paciente.png)
+En esta captura de pantalla se muestra la funcionalidad de edición de un paciente.
+![editar paciente](/imagenes_administrador/editar_paciente.png)
 
 
 ### Eliminar Paciente
-    La función de eliminar pacientes permite eliminar de la base de datos un paciente en específico. En esta captura se muestra la confirmación de eliminación del paciente.
-    ![eliminar paciente](/imagenes_administrador/eliminar_paciente.png)
+La función de eliminar pacientes permite eliminar de la base de datos un paciente en específico. En esta captura se muestra la confirmación de eliminación del paciente.
+![eliminar paciente](/imagenes_administrador/eliminar_paciente.png)
 
 ### Listado de Medicos
-    En esta captura de pantalla, se muestra el listado de todos los medicos registrados en la base de datos. La lista se presenta con paginación para facilitar la navegación.
-    ![Listado medicos](/imagenes_administrador/Lista_medicos.png)
+En esta captura de pantalla, se muestra el listado de todos los medicos registrados en la base de datos. La lista se presenta con paginación para facilitar la navegación.
+![Listado medicos](/imagenes_administrador/Lista_medicos.png)
 
 ### Registrar Nuevo medico
-    Aquí se puede ver la interfaz para registrar un nuevo medico en la aplicación. 
-    ![Registrar nuevo medico](/imagenes_administrador/crear_medico.png)
+Aquí se puede ver la interfaz para registrar un nuevo medico en la aplicación. 
+![Registrar nuevo medico](/imagenes_administrador/crear_medico.png)
 
 ### Editar medico
-    En esta captura de pantalla se muestra la funcionalidad de edición de un medico.
-    ![editar medico](/imagenes_administrador/editar_medico.png)
+En esta captura de pantalla se muestra la funcionalidad de edición de un medico.
+![editar medico](/imagenes_administrador/editar_medico.png)
 
 
 ### Eliminar Medico
-    La función de eliminar medicos permite eliminar de la base de datos un medico en específico. En esta captura se muestra la confirmación de eliminación del medico.
-    ![eliminar medico](/imagenes_administrador/eliminar_medico.png)
+La función de eliminar medicos permite eliminar de la base de datos un medico en específico. En esta captura se muestra la confirmación de eliminación del medico.
+![eliminar medico](/imagenes_administrador/eliminar_medico.png)
 
 ### Listado de citas
-    En esta captura de pantalla, se muestra el listado de citas registradas correspondiente por cada medico o paciente. 
-    ![Listado citas](/imagenes_user/home_paciente_perfil.png)
+En esta captura de pantalla, se muestra el listado de citas registradas correspondiente por cada medico o paciente. 
+![Listado citas](/imagenes_user/home_paciente_perfil.png)
 
 ### Solicitar Cita Medica
-    Aquí se puede ver la interfaz para agendar una cita medica dependiendo del dia y el medico se obtendran diferentes horarios disponibles. 
-    ![Registrar cita](/imagenes_administrador/crear_cita.png)
+Aquí se puede ver la interfaz para agendar una cita medica dependiendo del dia y el medico se obtendran diferentes horarios disponibles. 
+![Registrar cita](/imagenes_administrador/crear_cita.png)
 
 ### Editar Cita Medica
-    En esta captura de pantalla se muestra la funcionalidad de edición de citas.
-    ![editar cita](/imagenes_administrador/editar_Cita.png)
+En esta captura de pantalla se muestra la funcionalidad de edición de citas.
+![editar cita](/imagenes_administrador/editar_Cita.png)
 
 
 ### Cancelar cita
-    La función de cancelar citas permite eliminar de la base de datos dicha cita por lo tanto el medico y paciente no tendran dicha cita en su listado. En esta captura se muestra la confirmación de cancelar cita.
-    ![cancelar cita](/imagenes_user/cancelar_cita.png)
+La función de cancelar citas permite eliminar de la base de datos dicha cita por lo tanto el medico y paciente no tendran dicha cita en su listado. En esta captura se muestra la confirmación de cancelar cita.
+![cancelar cita](/imagenes_user/cancelar_cita.png)
 
 
 
-    Estas capturas de pantalla ofrecen una visión general de las diferentes funcionalidades de la aplicación.
+Estas capturas de pantalla ofrecen una visión general de las diferentes funcionalidades de la aplicación.
 
 ## Funcionalidades
     La aplicación consta de los siguientes roles y funcionalidades: 
@@ -116,13 +116,26 @@ Para facilitar el tratamiento de datos se añadieron las dos siguientes tablas:
 	- Finalmente, La aplicación iniciara. 
 
 ## Configuraciòn DB:
-    - ![paso 1](/imagenes_DB/paso1.png)
-    - ![paso 2](/imagenes_DB/paso2.png)
-    - ![paso 3](/imagenes_DB/paso3.png)
-    - ![paso 4](/imagenes_DB/paso4.png)
-    - ![paso 5](/imagenes_DB/paso5.png)
-    - ![paso 6](/imagenes_DB/paso6.png)
-    - ![paso 7](/imagenes_DB/paso7.png)
+- Paso #1 
+![paso 1](/imagenes_DB/paso1.png)
+
+- Paso #2 
+![paso 2](/imagenes_DB/paso2.png)
+
+- Paso #3 
+![paso 3](/imagenes_DB/paso3.png)
+
+- Paso #4 
+![paso 4](/imagenes_DB/paso4.png)
+
+- Paso #5 
+![paso 5](/imagenes_DB/paso5.png)
+
+- Paso #6 
+![paso 6](/imagenes_DB/paso6.png)
+
+- Paso #7 
+![paso 7](/imagenes_DB/paso7.png)
 
 
 ## Consideraciones:
@@ -136,15 +149,15 @@ Es posible crear nuevas características de valor a este proyecto donde el perfi
 
 ## Credenciales de inicio de sesión
 ### Perfil Administrador
-- Correo: admin@admin.com
-- Contraseña: 12345
+    - Correo: admin@admin.com
+    - Contraseña: 12345
 ### Perfil Paciente
-- Correo: andres@email.com
-- Contraseña: 12345
+    - Correo: andres@email.com
+    - Contraseña: 12345
 
 ## Credeciales Base de datos MySQL
-- user: root
-- password: admin
+    - user: root
+    - password: admin
 
 ## Contacto
 
